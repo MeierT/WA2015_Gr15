@@ -2,10 +2,89 @@
 
 \section{Erklärung}
 
+-löst das Shortest-Path Problem (oder Single-Source Shortest Path Problem)
+[Def Problem einfügen]
+-Problemstellung: Wie finde ich den kürzesten Pfad von meinem Startknoten s zu einem Zielknoten u ? Mit kurz ist nicht die Länge gemeint, sondern die Minimierung der Pfadkosten!
+-Eingabe sind Digraphen (ungerichtete Graphen lassen sich leicht in Digraphen umwandeln, indem man zu jeder Kante (u,v) eine Kante (v,u) mit gleichen Kosten hinzufügt)
+-Annahme: für jeden Knoten existiert auch ein Pfad
+-funktioniert nach dem Entwurfsprinzip Greedy
+
+\underline{kurze Erklärung zu Greedy-Algorithmen:}
+-greedy = engl. gierig
+- zu Beginn  ist Teillösung T = \emptyset
+-im nächsten Schritt werden alle möglichen Erweiterungen in Betracht gezogen und nach ihrem Nutzen bewertet. Zur Bewertung wird ein Greedy-Kriterium formuliert.
+-Die Erweiterung, die den maximalen Nutzen bringt, wird ausgewählt und die Lösung damit erweitert. 
+- Eine einmal durchgeführte Erweiterung wird nicht mehr rückgängig gemacht! Deshalb sind Greedy-Algorithmen sehr effizient.
+-Die durch sukzessive Erweiterung erzielte Lösung ist optimal.
+
+Dijkstra 
+-Grundidee:  Pfadkosten d(u) für jeden Knoten u schätzen aus einer Menge Q (alle restlichen Knoten). Nach jeder Erweiterung werden die Schätzungen aktualisiert
+
+-genaueres Vorgehen:
+1. Initalisierung: Man beginnt mit Q = V, d.h. alle Knoten sind enthalten, d(s) = 0 (Kosten des Startknoten auf 0 setzen). Alle anderen d(u) werden auf undefiniert gesetzt, weil deren Schätzwerte noch nicht bekannt sind.
+2.Erweiterung: Jetzt wird die Greedy-Auswahlregel verwendet, d.h. man sucht in Q nach dem Knoten mit dem kleinsten Schätzwert und entfernt diesen aus Q. (Streng genommen wird die Lösung nicht erweitert, da die Lösungsmenge nicht explizit konstruiert wird. T entspricht V/Q)
+3.Aktualisierung: Nachfolger von v durchgehen und deren Schätzwerte d(u) ggf. aktualisieren, falls diese nun schneller erreichbar sind.
+
+-wenn man zu jedem Knoten u den Vorgänger p(u) = v in einer Liste speichert, lässt sich so zu jedem Knoten der kürzeste Pfad finden 
+(s, ... , p(p(u)),p(u),u) 
+
+
 \section{Komplexität}
+
+-\textbf{O(m²) }bei schlechter Implementierung
+-bei Implementierung mit Priority-Queue in geeigneter Datenstruktur (z.B. heapq in Python) lässt sich  eine deutlich bessere Laufzeit von \textbf{O(k*log m)} erreichen [k = Kantenzahl des Graphen]
 
 \section{Implementierung}
 
+from heapq import heappush, heappop
+
+def dijkstra_pq(G,s):
+    m = len(G)                              #O(1)
+    pq = []       #priority queue           #O(1)
+    d = [None]*m  #kosten                   #O(m)
+    p = [None]*m  #vorgaenger		       #O(m)
+    d[s] = 0                                #O(1)
+    heappush(pq, (0,s))                     #O(m)
+    while pq:                               #O(m)
+        (_,v) = heappop(pq)                 #O(log m)
+        for u in G[v]:                      #O(deg(v)) --> O(k)  
+            alt = d[v] + G[v][u]            #O(1)
+            if d[u]== None or alt < d[u]:   #O(1)
+                d[u] = alt		            #O(1)	
+               	p[u] = v                    #O(1)
+                heappush(pq, (alt,u))       #O(log m)        
+    return d,p
+
+def shortest_path(s,v,p):
+	if v == None:
+		return []
+	else:
+		return shortest_path(s,p[v],p) + [v]
+ 
+#Graph: 
+    
+def define_G():
+    G = [   {1:1, 4:4, 2:2},   # Nachfolger von s
+            {3:3, 4:1},        # von u
+            {4:2, 5:3},        # von x
+            {},                # von y
+            {3:1, 5:2},        # von v
+            {}                 # von z
+        ]
+    return G
+
+
+G = define_G()
+d,p = dijkstra_pq(G,0)
+print( shortest_path(0,5,p))
+print( shortest_path(0,3,p))
+
 \section{Anwendungsbereiche}
+
+-Verkehrsnetzwerke (Routenplanung für Warentransport, Luftfahrt, Zug, Kosten sind hierbei z.B. Reisezeiten, Entfernung und Maut
+
+-Kommunikationsnetzwerke (Routing Rechnernetze, Kosten = Kapazitäten, Übertragungszeiten)
+
+-Informationsnetzwerke (Anzahl Links Domain Suchmaschine)
 
 DIJKTRA - ALGORITHMUS
