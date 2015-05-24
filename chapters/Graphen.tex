@@ -3,4 +3,31 @@
 \section{Definition Graph}
 
 \section{Datenstrukturen zur Repräsentation von Graphen}
+
+\emph{-Speicherung in Adjazenzmatrix}
+-Graph G=(V,E) wird in einer booleschen m*m Matrix gespeichert (m = \sharp V)
+ mit 1 falls (i,j) element E (Kantenmenge) und 0 falls nicht
+ [formale Def einfügen]
+ -Nachteil: erfordert unverhältnismäßig viel Speicher, wenn der Graph nur wenig    	  Kanten hat
+ -Abhilfe: Zusatzmatrix, die nur bedeutsame Einträge speichert
+ -insgesamt aber trotzdem ineffizient bei Graphen mit wenig Kanten
+ 
+ [Grafik]
+ 
+\emph{-Speicherung in Adjazenzlisten}
+-für jeden Knoten wird eine lineare, verkettete Liste seiner ausgehenden Kanten gespeichert
+-Die Knoten werden als lineares Feld gespeichert (d.h. jeder Knoten im Feld zeigt auf eine Liste)
+-effizienter als Adjazenzmatrix, weil kein Speicherplatz verschwendet wird
+
+[Grafik]
+
+\emph{-Speicherung in doppelt verketteten Listen}
+-jedes Element enthält Zeiger auf die beiden Nachbarelemente sowie auf eine Kantenliste (wie bei Adjazenzliste, s.o.)
+-diese Darstellung besitzt die den Adjazenzlisten fehlende Dynamik, ist aber natürlich komplizierter
+
+[Grafik]
+
+Quelle:
+Algorithmen und Datenstrukturen, T.Ottmann/P.Widmayer, Kap. 8 Graphenalgorithmen, S.539-544
+
 GRAPHEN
