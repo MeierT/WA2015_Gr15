@@ -1,0 +1,19 @@
+\chapter{Dijkstra-Algorithmus}
+
+\section{Erklärung}
+
+-Algorithmus zur Weg-Findung
+
+Der Dijkstra-Algorithmus ist ein Verfahren zur Berechnung des Kürzesten Weges zu einem bestimmten Zielpunkt auf der Basis eines gegebenen Ausgangspunktes und einem Netz aus möglichen Wegen.
+So kann ein Netz aus möglichen Wegen beispielsweise ein Straßennetz sein.
+Ausgangspunkt ist jener Punkt, auf dem man sich gerade befindet und der Zielpunkt soll das Fahrtziel sein.
+Der Algorithmus sucht nun nach dem kürzesten Weg um dieses Ziel zu erreichen.
+
+Entwickelt wurde dieses Verfahren vom Mathematiker Edsker W. Dijkstra (1930 - 2002), einen niederländischen Professor für Mathematik an der technischen Hochschule Eindhoven, im Jahre 1959.
+
+
+
+-Weiteres Vorgehen:
+	- Genauer beschreiben, wie der Algorithmus funktioniert.
+		-> Nach Ottman/Wiedmayer S. 406 ff.
+		
