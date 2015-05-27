@@ -1,0 +1,35 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+\usepackage {amsmath}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+
+\title{Komplexität}
+\begin{document}
+
+\section{Komplexität}
+\subsection{Ursprüngliche Implementierung}
+
+Das Initialisieren der Arrays benötigt jeweils $O(m)$ Schritte, wobei m die Kardinalität der Knotenmenge des Graphen ist.
+Die äußere Schleife arbeitet alle grauen Knoten ab und benötigt daher ebenfalls $O(m)$ Schritte. Das Bestimmen des Minimums braucht ebenfalls $O(m)$ Schritte.
+Das Aktualisieren der Nachfolger benötigt $O(deg(v))$ Schritte, also die Anzahl der ausgehenden Kanten des Knotens v, die maximal k beträgt (Gesamtzahl Kanten). Da in jedem Fall gilt, dass k < m (jede Kante mündet in 2 Knoten), können wir dies vernachlässigen, ebenso wie die übrigen Operationen, die konstant sind.
+Insgesamt ergibt sich so eine Laufzeit von $O(m^{2})$,\footnote{OTTMANN, Thomas; WIDMAYER Peter: Algorithmen und Datenstrukturen, Reihe Informatik Bd. 70, Mannheim: BI-Wissenschaftsverlag, 1990,S.576,Z.13} da m mal das Minimum in $O(m)$ bestimmt wird.
+Das ist bei dünnen Graphen, also Graphen mit wenig Kanten im Verhältnis zur Knotenzahl sehr ineffizient. Im Vergleich zu günstigeren Implementierungen ist die Laufzeit recht hoch.
+
+\subsection{Implementierung mit Heap}
+Die von Dijkstra vorgeschlagene Implementierung lässt sich verbessern, indem man zur Speicherung der grauen Knoten einen Heap einsetzt, denn in einem Heap lässt sich das Bestimmen des Minimums und dessen Entfernen in $O(log m)$ bestimmen.
+
+\parindent0pt Das Einfügen eines Elementes beträgt ebenfalls $O(log m)$ Schritte.
+
+\parindent0pt Zwar ist das gezielte Löschen von Knoten mit veralteten Werten nicht möglich, sodass eventuell mehrere Knoten mit gleichen Werten existieren, dies ist jedoch nicht weiter schlimm, "wenn man für jeden Knoten nur die erste Entnahme dieses Knotens aus dem Heap beachtet und alle weiteren ignoriert".\footnote{vergl. Ebd.S.576 Z.29-31} Damit dies funktioniert, muss man speichern, welche Knoten bereits betrachtet wurden und welche nicht.
+
+\parindent0pt Jede Kante erhält maximal einen Eintrag im Heap, also enthält dieser nie mehr als k Kanten. Damit kostet das Einfügen $k*log(m)$ Rechenschritte, ebenso wie das Entfernen. Somit ergibt sich für die Implementierung mit Heap eine Laufzeit von $O(k*log(m))$\footnote{vergl. Ebd., S. 576 Z.36}, was den Algorithmus bei dünnen Graphen sehr effizient macht.
+Bei sehr dichten Graphen mit $k = \Omega (m^{2})$ schneidet der ursprüngliche Dijkstra dagegen besser ab.
+
+\parindent0pt Durch die Verwendung eines speziellen Heaps, dem Fibonacci-Heap, lässt sich eine Laufzeit von $O(k + m * log(m))$ \footnote{vergl. Ebd., S.577 Z.10} erreichen, wodurch die Implementierung mit einem Heap auch bei dichten Graphen effizienter ist.
+
+
+
+\end{document}
