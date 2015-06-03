@@ -44,13 +44,13 @@ Die Grundidee besteht darin, für jeden Knoten die Pfadkosten zu schätzen und d
 
 \parindent0pt Dijkstra geht bei seinem Algorithmus folgendermaßen vor: Er unterteilt die Knoten des Graphen zunächst einmal in drei Gruppen: Die Knoten, deren Schätzwert bereits feststehen ("black nodes"\footnote{DIJKSTRA Edsger W., FEIJEN W.H.J.: A Method of Programming,Cornwall: Addison-Wesley Publishing Company,1988, S.107 Z.24}), deren Nachfolger ("grey nodes"\footnote{vergl. Ebd., S.108, Z.2-3} sowie unerreichbare Knoten, deren Schätzwerte gänzlich unbekannt sind ("white nodes" \footnote{vergl. Ebd., S.108, Z.3}).
 
-\begin{figure}
-\begin{center}
+\begin{figure}[h]
+\centering
 \includegraphics[width = 8cm]{knotentypen.jpg}
 \caption{Knotentypen {\tiny (Quelle: OTTMANN, Thomas; WIDMAYER Peter: Algorithmen und Datenstrukturen, Reihe Informatik Bd. 70, Mannheim: BI-Wissenschaftsverlag, 1990, S.573 Abb. 8.19)} }
-\label{Knotentypen}
-\end{center}
+\label{a1}
 \end{figure}
+
 
 \parindent0pt Wenn keine grauen Knoten vorhanden sind, lässt sich die Lösungsmenge nicht erweitern. 
 
