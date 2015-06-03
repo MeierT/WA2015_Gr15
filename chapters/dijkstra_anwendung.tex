@@ -1,0 +1,28 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
+
+
+\title{Anwendung}
+
+\begin{document}
+Es stellt sich natürlich die Frage nach dem praktischen Nutzen des Dijkstra-Algorithmus. Diese Frage lässt sich gar nicht so schnell beantworten, da er vielseitig einsetzbar ist und in mehreren Bereichen Anwendung findet.
+
+\parindent0pt Allgemein gesprochen ist dies überall, wo Routenplanung vonnöten ist.
+
+\parindent0pt
+Das kann z.B. Warentransport aller Art sein. Ganz gleich, ob man die Güter per Flugzeug, Bahn oder LKW transportiert, die Routen in dem jeweiligen Verkehrsnetz müssen entsprechend geplant werden, damit die Waren schnell und günstig am Zielort ankommen. Die Kosten einer Route müssen dabei nicht unbedingt die Entfernung an sich sein, auch andere Faktoren wie z.B. Mautkosten können hinzukommen. Diese spiegeln sich dann in den Kantenkosten wieder.
+
+\parindent0pt Was für Warentransport gilt, lässt sich auch auf den Personentransport übertragen. Wer eine möglichst günstige Reiseroute sucht, mit der er sein Reiseziel am schnellsten erreicht, kann diese mit Dijkstra errechnen.
+
+\parindent0pt Ein weiteres bedeutendes Anwendungsfeld ist Routing bei Rechnernetzen. Auf der Ebene der Vermittlungsschicht werden Pakete von der Quelle zum Ziel weitergeleitet. Dieser Weg besteht aus mehreren Teilstrecken, sogenannten Hops. \footnote{TANENBAUM,Andrew; WETHERALL, David: Rechnernetze, München: Pearson Deutschland GmbH,2012, Kap. 5.2 Routing Algorithmen, S.420 Z. 1-7} Zur Auswahl dieser Hops wird unter anderem Dijkstra verwendet. 
+
+\parindent0pt
+Als Maß zur Bewertung der Teilstrecken kann die Anzahl der Teilstrecken gewählt werden, was allerdings sehr unpräzise ist, oder die physikalische Entfernung. Ein anderes Maß stellt die mittlere Übertragungszeit einer Teilstrecke für ein Paket dar. Die mittlere Übertragungszeit muss dazu regelmäßig aktualisiert werden. Im letzten Fall wäre der "kürzeste" Pfad der schnellste.\footnote{Ebd.,S.424, Z.1-5}
+Allgemein werden die Kosten jedoch als "Funktion von Entfernung, Bandbreite, Durchschnittsverkehr, Übertragungskosten, gemessener Übertragungszeit und weiterer Faktoren"\footnote{Ebd.,S.424 Z.6-8} berechnet.
+
+
+
+
+\end{document}
