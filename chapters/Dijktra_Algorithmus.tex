@@ -36,6 +36,8 @@ Dijkstra
 
 \section{Implementierung}
 
+\lstset{language=Python}
+\begin{lstlisting}
 from heapq import heappush, heappop
 
 def dijkstra_pq(G,s):
@@ -78,6 +80,7 @@ G = define_G()
 d,p = dijkstra_pq(G,0)
 print( shortest_path(0,5,p))
 print( shortest_path(0,3,p))
+\end{lstlisting}
 
 \section{Anwendungsbereiche}
 
