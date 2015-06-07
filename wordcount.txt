@@ -1,0 +1,474 @@
+HOCHSCHULE TRIER
+Trier University of Applied Sciences
+Informatik - Computer Science
+
+Funktionsprinzip und Anwendungsbeispiele des DijkstraAlgorithmus
+
+Bearbeiter 1: Thomas Ju
+¨rgensen
+Bearbeiter 2: Annika Kremer
+Bearbeiter 3: Tobias Meier
+Gruppe: 13
+
+Ausarbeitung zur Vorlesung Wissenschaftliches Arbeiten
+
+Ort, Abgabedatum
+
+Kurzfassung
+
+kurzfassung Gr 13
+
+Inhaltsverzeichnis
+
+1
+
+Einleitung und Problemstellung . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+1
+
+2
+
+Graphen . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2.1 Definition Graph . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+2.2 Datenstrukturen zur Repr¨asentation von Graphen . . . . . . . . . . . . . . . .
+
+2
+2
+3
+
+3
+
+Dijktra - Algorithmus . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.1 Erkl¨arung . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.1.1 Das Shortest-Path Problem . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.1.2 Mathematische Definition . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.1.3 Zur Eingabe . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.1.4 Das Optimalit¨atsprinzip . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.1.5 Funktionsweise des Algorithmus . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.1.6 Realisierung . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.2 Komplexit¨at . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.3 Implementierung . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+3.4 Anwendungsbereiche . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+4
+4
+4
+4
+4
+4
+5
+6
+7
+7
+8
+
+4
+
+Zusammenfassung . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .
+
+9
+
+Glossar . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+
+1
+Einleitung und Problemstellung
+
+EINLEITUNG
+
+2
+Graphen
+
+2.1 Definition Graph
+-F¨
+ur Dijkstra auf gerichtete Graphen ausgelegt.
+Satz 2.1. Ein Graph G besteht aus einer Menge X [deren Elemente Knotenpunkte
+genannt werden] und einer Menge U, wobei jedem Element u ∈ U in eindeutiger
+Weise ein geordnetes oder ungeordnetes Paar von [nicht notwendig verschiedenen]
+Knotenpunkten, x,y ∈ X zugeordnet ist. Ist jedem u ∈ U ein geordnetes Paar von
+Knoten zugeordnet, so heißt der Graf gerichtet, und wir schreiben G = (X, U ).
+Die Elemente von U werden in diesem Fall als B¨
+ogen bezeichnet.
+Ist jedem u ∈ U ein ungeordnetes Paar von Knotenpunkten zugeordnet, so heißt
+der Graph ungerichtet und wir schreiben G = [X, U ]. Die Elemente von U bezeichnen wir dann als Kanten.
+1
+
+Ein gerichteter Graph besteht somit aus einer Menge aus geordneten Knotenpunkten. Dadurch, das diese Punkte geordnet sind, ist eine Verlaufsrichtung festgelegt, in welcher der Graph zeigt. Somit kann sich eine geometrische Figur ergeben.
+[Grafik hier einf¨
+ugen]
+Wenn man diese Punkte als Richtungen nun als Straßennetz s¨ahe, w¨
+urde sich
+durch die Punkte ein Straßenverlauf abbilden mit unterschiedlichen Verlaufsrichtungen. Somit verb¨
+unde nicht jede Strecke direkt jeden Punkt. Um jenen k¨
+urzesten
+Weg zu finden, der zwei bestimmte Punkte miteinander verbindet, kann man den
+Dijkstra-Algorithmus anwenden, welcher im Folgenden erkl¨art wird.
+
+1
+
+Bieß, Graphentheorie, S.9
+
+2.2 Datenstrukturen zur Repr¨
+asentation von Graphen
+
+3
+
+2.2 Datenstrukturen zur Repr¨
+asentation von Graphen
+-Speicherung in Adjazenzmatrix -Graph G=(V,E) wird in einer booleschen m*m
+Matrix gespeichert (m = ]V ) mit 1 falls (i,j) element E (Kantenmenge) und 0 falls
+nicht [formale Def einf¨
+ugen] -Nachteil: erfordert unverh¨altnism¨aßig viel Speicher,
+wenn der Graph nur wenig Kanten hat -Abhilfe: Zusatzmatrix, die nur bedeutsame
+Eintr¨age speichert -insgesamt aber trotzdem ineffizient bei Graphen mit wenig
+Kanten
+[Grafik]
+-Speicherung in Adjazenzlisten -f¨
+ur jeden Knoten wird eine lineare, verkettete Liste seiner ausgehenden Kanten gespeichert -Die Knoten werden als lineares
+Feld gespeichert (d.h. jeder Knoten im Feld zeigt auf eine Liste) -effizienter als
+Adjazenzmatrix, weil kein Speicherplatz verschwendet wird
+[Grafik]
+-Speicherung in doppelt verketteten Listen -jedes Element enth¨alt Zeiger auf
+die beiden Nachbarelemente sowie auf eine Kantenliste (wie bei Adjazenzliste,
+s.o.) -diese Darstellung besitzt die den Adjazenzlisten fehlende Dynamik, ist aber
+nat¨
+urlich komplizierter
+[Grafik]
+Quelle: Algorithmen und Datenstrukturen, T.Ottmann/P.Widmayer, Kap. 8
+Graphenalgorithmen, S.539-544
+GRAPHEN
+
+3
+Dijktra - Algorithmus
+
+3.1 Erkl¨
+arung
+3.1.1 Das Shortest-Path Problem
+Das Shortest-Path Problem ist in der Literatur manchmal auch unter dem Namen
+Single-Source Shortest Path Problem zu finden. Es behandelt die Frage, wie man in
+einem Graphen ausgehend von einem gegebenen Anfangsknoten s (engl. Source)
+zu jedem anderen Knoten des Graphen den k¨
+urzesten Pfad findet 1 . Mit kurz
+ist hierbei nicht die L¨ange gemeint, sondern die Minimierung der Kantenkosten.
+Im Allgemeinen ist mit L¨ange nicht die tats¨achliche L¨ange gemeint, sondern die
+Pfadkosten.
+3.1.2 Mathematische Definition
+¨
+[HIER DEFINITION EINFUGEN,
+AD Skript S.132]
+3.1.3 Zur Eingabe
+Die Eingabe besteht stets aus gerichteten Graphen. Hierbei muss jedoch angemerkt
+werden, dass sich jeder ungerichtete Graph leicht in einen gerichteten Graph umwandeln l¨asst, indem man f¨
+ur jede Kante {u,v} die Kanten (u,v) und (v,u) mit gleichen Kosten einf¨
+uhrt.2 Somit findet der Dijkstra-Algorithmus auch f¨
+ur ungerichtete
+Graphen Anwendung, solange man sie vorher in einen Digraphen u
+uhrt.
+¨berf¨
+Zudem wird davon ausgegangen, dass die Kantenkosten nicht negativ sind.
+3.1.4 Das Optimalit¨
+atsprinzip
+Dem Dijkstra-Algorithmus liegt das Optimalit¨atsprinzip zugrunde:
+F¨
+ur jeden k¨
+urzesten Pfad p=(v0,v1,...,vk) von v0 nach vk ist jeder Teilweg p’=(vi,
+..., vj) mit 0 ≤ i < j ≤ k ein k¨
+urzester Weg von vi nach vj.
+1
+
+2
+
+OTTMANN, Thomas; WIDMAYER Peter: Algorithmen und Datenstrukturen, Reihe Informatik Bd.
+70, Mannheim: BI-Wissenschaftsverlag, 1990, S. 572, Z. 19-20
+AD Skript, S.133 Z.8-13
+
+3.1 Erkl¨
+arung
+
+5
+
+Das bedeutet kurz gesagt, dass man f¨
+ur alle m¨oglichen Teilpfade annimmt, dass sie
+optimal sind. Dass diese Annahme stimmt, l¨asst sich mittels Widerspruchbeweis
+nachweisen:
+Man geht vom Gegenteil aus, n¨amlich dem Fall, dass neben dem Pfad p’ von vi
+nach vj ein anderer, k¨
+urzerer Pfad p” von vi nach vj existiert. Dann m¨
+usste man
+p’ durch p” ersetzen (denn p” ist k¨
+urzer). Damit w¨
+urde sich auch der Gesamtpfad
+von v0 nach vk verk¨
+urzen. Da unser Pfad p von v0 nach vk bereits der k¨
+urzeste war,
+3
+ist das ein Widerspruch.
+¨
+[INVARIANTEN OPTIONAL HINZUFUGEN]
+3.1.5 Funktionsweise des Algorithmus
+Auf welche Weise findet man nun zur optimalen L¨osung? Die Grundidee besteht darin, f¨
+ur jeden Knoten die Pfadkosten zu sch¨atzen und die bestehende
+L¨osungsmenge mit dem Knoten zu erweitern, welcher den geringsten Sch¨atzwert
+aufweist.
+Diese Arbeitsweise entspricht dem Greedy-Entwurfsmuster (engl. gierig): Nach einem Auswahlkriterium (die sogenannte Greedy-Regel) wird aus einer Menge das
+Element zur Erweiterung der L¨osung gew¨ahlt, das den meisten Nutzen verspricht.
+In diesem Fall ist die Greedy-Regel das Verlangen nach dem kleinsten Sch¨atzwert.
+Dijkstra geht bei seinem Algorithmus folgendermaßen vor: Er unterteilt die Knoten des Graphen zun¨achst einmal in drei Gruppen: Die Knoten, deren Sch¨atzwert
+bereits feststehen (”black nodes”4 ), deren Nachfolger (”grey nodes”5 sowie unerreichbare Knoten, deren Sch¨atzwerte g¨anzlich unbekannt sind (”white nodes”6 ).
+
+Abb. 3.1. Knotentypen
+
+(Quelle: OTTMANN, Thomas; WIDMAYER Peter: Algorithmen und Datenstrukturen,
+
+Reihe Informatik Bd. 70, Mannheim: BI-Wissenschaftsverlag, 1990, S.573 Abb. 8.19)
+3
+
+4
+
+5
+6
+
+OTTMANN, Thomas; WIDMAYER Peter: Algorithmen und Datenstrukturen, Reihe Informatik Bd.
+70, Mannheim: BI-Wissenschaftsverlag, 1990, S.573, Z.1-5
+DIJKSTRA Edsger W., FEIJEN W.H.J.: A Method of Programming,Cornwall: Addison-Wesley Publishing Company,1988, S.107 Z.24
+vergl. Ebd., S.108, Z.2-3
+vergl. Ebd., S.108, Z.3
+
+3.1 Erkl¨
+arung
+
+6
+
+Wenn keine grauen Knoten vorhanden sind, l¨asst sich die L¨osungsmenge nicht
+erweitern.
+Ansonsten muss aus den grauen Knoten einer ausgew¨ahlt werden, der schwarz
+werden soll, d.h. der Knoten, mit dem die L¨osungsmenge erweitert wird. Alle
+vorherigen Pfade bestehen dabei ausschließlich aus schwarzen Knoten, d.h. Knoten
+die mit endg¨
+ultig festgelegten Sch¨atzwerten der L¨osungsmenge bereits hinzugef¨
+ugt
+wurden.
+Um zu bestimmen, welcher graue Knoten gew¨ahlt wird muss man die Kosten seines
+speziellen Pfades bestimmten 7 , d.h. den Pfad ausgehend vom Startknoten s bis
+hin zur Kante vom letzten schwarzen Knoten zum aktuellen grauen Knoten. Der
+Knoten, dessen spezieller Pfad am kosteng¨
+unstigsten ist, wird in die Menge der
+schwarzen Knoten aufgenommen und aus der Menge der grauen entfernt. Ist dieser
+Schritt vollzogen, m¨
+ussen noch seine Nachfolger behandelt werden. Dabei gibt es
+f¨
+ur jeden Nachfolger drei M¨oglichkeiten:
+Fall 1: Der Nachfolger ist weiß, d.h. er hat noch keinen Sch¨atzwert. Dann wird
+dieser jetzt bestimmt und der Knoten wird grau.
+Fall 2: Der Nachfolger ist grau. Dann muss verglichen werden, ob der aktuelle
+Sch¨atzwert geringer ist als der vorherige, und wenn dies zutrifft, wird der Wert
+entsprechend aktualisiert. (Das ist immer dann der Fall, wenn man einen kosteng¨
+unstigeren Pfad f¨
+ur den entsprechenden Knoten gefunden hat.)
+Fall 3: Der Nachfolger ist schwarz. Dann steht sein Sch¨atzwert bereits fest und er
+kann ignoriert werden.
+3.1.6 Realisierung
+Um dies umzusetzen, geht Dijkstra folgendermaßen vor: In einem Array werden
+die Farben der Knoten gespeichert. Ein weiteres Array dient der Speicherung der
+Sch¨atzwerte.
+Da der Knoten mit minimalen Pfadkosten nur aus den grauen gew¨ahlt wird, ist es
+sinnvoll, ein Feld f¨
+ur diese anzulegen, wobei eine Variable, die zugleich als Zeiger
+dient, deren Anzahl speichert.
+Des weiteren werden zu jedem Knoten deren unmittelbare Vorg¨anger gespeichert,
+sodass sich der vollst¨andige Pfad zu jedem Knoten zur¨
+uckverfolgen l¨asst (Rekursion).
+Eingegeben wird ein Graph zusammen mit Startknoten s und Zielknoten v. Ist v
+nicht von s aus erreichbar, sind die zur¨
+uckgegeben Pfadkosten 0. Ansonsten wird
+die L¨ange zur¨
+uckgegeben.
+Das konkrete Vorgehen sieht nun folgendermaßen aus:
+1. Initialisierung: Alle Knoten werden auf weiß gesetzt, der Startknoten s wird
+grau.
+2. Erweiterung: Der Knoten mit minimalem Sch¨atzwert wird aus der Menge der
+grauen Knoten ausgew¨ahlt und herausgenommen. Er wird auf schwarz gesetzt,
+sein Sch¨atzwert ist nun endg¨
+ultig.
+7
+
+vergl. Ebd., S.108,Z.8-12
+
+3.3 Implementierung
+
+7
+
+3. Aktualisierung: Nun werden alle Nachfolger betrachtet. Deren Sch¨atzwerte werden gegebenenfalls aktualisiert, wenn deren Pfadkosten nun geringer sind.
+Der Algorithmus terminiert, wenn alle grauen Knoten abgearbeitet sind bzw. wenn
+der letzte Knoten schwarz ist.
+[Anmerkung: Die genaue Implementierung steht auf S.111. Hab sie bei images
+reingepackt, falls ihr euch die mal angucken wollt]
+
+3.2 Komplexit¨
+at
+-O(m²) bei schlechter Implementierung -bei Implementierung mit Priority-Queue
+in geeigneter Datenstruktur (z.B. heapq in Python) l¨asst sich eine deutlich bessere
+Laufzeit von O(k*log m) erreichen [k = Kantenzahl des Graphen]
+
+3.3 Implementierung
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+
+from heapq import heappush , heappop
+def d i j k s t r a p q (G, s ) :
+m = len (G)
+#O( 1 )
+pq = [ ]
+#p r i o r i t y queue
+#O( 1 )
+d = [ None ] ∗m #k o s t e n
+#O(m)
+p = [ None ] ∗m #v o r g a e n g e r
+#O(m)
+d[ s ] = 0
+#O( 1 )
+heappush ( pq , ( 0 , s ) )
+#O(m)
+while pq :
+#O(m)
+( , v ) = heappop ( pq )
+#O( l o g m)
+f o r u in G[ v ] :
+#O( deg ( v ) ) −−> O( k )
+a l t = d [ v ] + G[ v ] [ u ]
+#O( 1 )
+i f d [ u]== None or a l t < d [ u ] :
+#O( 1 )
+d[u] = alt
+#O( 1 )
+p[u] = v
+#O( 1 )
+heappush ( pq , ( a l t , u ) )
+#O( l o g m)
+return d , p
+def s h o r t e s t p a t h ( s , v , p ) :
+i f v == None :
+return [ ]
+else :
+return s h o r t e s t p a t h ( s , p [ v ] , p ) + [ v ]
+#Graph :
+def d e f i n e G ( ) :
+G = [
+{1:1 ,
+{3:3 ,
+{4:2 ,
+{} ,
+{3:1 ,
+{}
+]
+return G
+
+4:4 , 2:2} ,
+4:1} ,
+5:3} ,
+5:2} ,
+
+G = define G ()
+d , p = d i j k s t r a p q (G, 0 )
+
+#
+#
+#
+#
+#
+#
+
+N a c h f o l g e r von s
+von u
+von x
+von y
+von v
+von z
+
+3.4 Anwendungsbereiche
+41
+42
+
+8
+
+print ( s h o r t e s t p a t h ( 0 , 5 , p ) )
+print ( s h o r t e s t p a t h ( 0 , 3 , p ) )
+
+3.4 Anwendungsbereiche
+Der Dijkstra-Algorithmus wird noch heute oft verwendet und bietet einen großen
+Nutzen beispielsweise im Verkehrswesen. So wird er oft f¨
+ur die Routenplanung von
+Warentransporten verwendet, aber auch f¨
+ur die Streckenberechnungen von Z¨
+ugen
+und Flugzeugen. Hier bedeutet jeder Umweg h¨ohere Transportkosten, da Treibstoff
+und Fahrtzeit steigen.
+Doch auch in Kommunikationsnetzwerken findet der Weg-Findungs-Algorithmus
+von Dijkstra noch immer Verwendung. Zwischen Rechnernetzen findet Routing
+statt. Hier kosten Umwege wertvolle Kapazit¨aten, welche sehr begrenzt sind. Somit ist es sinnvoll, die k¨
+urzesten Kommunikationswege zu finden, damit die Kapazit¨aten nicht unn¨otig belastet werden.
+-Informationsnetzwerke (Anzahl Links Domain Suchmaschine)
+DIJKTRA - ALGORITHMUS
+
+4
+Zusammenfassung
+
+ZUSAMMENFASSUNG + AUSBLLICK
+
+A
+Glossar
+
+DisASTer
+
+DSM
+AC
+SC
+WC
+RC
+
+DisASTer (Distributed Algorithms Simulation Terrain),
+A platform for the Implementation of Distributed Algorithms
+Distributed Shared Memory
+Linearisierbarkeit (atomic consistency)
+Sequentielle Konsistenz (sequential consistency)
+Schwache Konsistenz (weak consistency)
+Freigabekonsistenz (release consistency)
+
+
