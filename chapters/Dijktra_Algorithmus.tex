@@ -2,37 +2,100 @@
 
 \section{Erklärung}
 
--löst das Shortest-Path Problem (oder Single-Source Shortest Path Problem)
-[Def Problem einfügen]
--Problemstellung: Wie finde ich den kürzesten Pfad von meinem Startknoten s zu einem Zielknoten u ? Mit kurz ist nicht die Länge gemeint, sondern die Minimierung der Pfadkosten!
--Eingabe sind Digraphen (ungerichtete Graphen lassen sich leicht in Digraphen umwandeln, indem man zu jeder Kante (u,v) eine Kante (v,u) mit gleichen Kosten hinzufügt)
--Annahme: für jeden Knoten existiert auch ein Pfad
--funktioniert nach dem Entwurfsprinzip Greedy
+\subsection{Das Shortest-Path Problem}
+Das Shortest-Path Problem ist in der Literatur manchmal auch unter dem Namen Single-Source Shortest Path Problem zu finden. 
+Es behandelt die Frage, wie man in einem Graphen ausgehend von einem gegebenen Anfangsknoten s (engl. Source) zu jedem anderen Knoten des Graphen den kürzesten Pfad findet \footnote{OTTMANN, Thomas; WIDMAYER Peter: Algorithmen und Datenstrukturen, Reihe Informatik Bd. 70, Mannheim: BI-Wissenschaftsverlag, 1990, S. 572, Z. 19-20}. Mit kurz ist hierbei nicht die Länge gemeint, sondern die Minimierung der Kantenkosten. Im Allgemeinen ist mit Länge nicht die tatsächliche Länge gemeint, sondern die Pfadkosten.
 
-\underline{kurze Erklärung zu Greedy-Algorithmen:}
--greedy = engl. gierig
-- zu Beginn  ist Teillösung T = $\emptyset$
--im nächsten Schritt werden alle möglichen Erweiterungen in Betracht gezogen und nach ihrem Nutzen bewertet. Zur Bewertung wird ein Greedy-Kriterium formuliert.
--Die Erweiterung, die den maximalen Nutzen bringt, wird ausgewählt und die Lösung damit erweitert. 
-- Eine einmal durchgeführte Erweiterung wird nicht mehr rückgängig gemacht! Deshalb sind Greedy-Algorithmen sehr effizient.
--Die durch sukzessive Erweiterung erzielte Lösung ist optimal.
 
-Dijkstra 
--Grundidee:  Pfadkosten d(u) für jeden Knoten u schätzen aus einer Menge Q (alle restlichen Knoten). Nach jeder Erweiterung werden die Schätzungen aktualisiert
+\subsection{Zur Eingabe}
+Die Eingabe besteht stets aus gerichteten Graphen. Hierbei muss jedoch angemerkt werden, dass sich jeder ungerichtete Graph leicht in einen gerichteten Graph umwandeln lässt, indem man für jede Kante \{u,v\} die Kanten (u,v) und (v,u) mit gleichen Kosten einführt.\footnote{Vorlesungsskript Algorithmendesign, Prof.Dr.Heinz Schmitz, Stand 6. April 2015, S.133 Z.8-13} Somit findet der Dijkstra-Algorithmus auch für ungerichtete Graphen Anwendung, solange man sie vorher in einen Digraphen überführt. 
 
--genaueres Vorgehen:
-1. Initalisierung: Man beginnt mit Q = V, d.h. alle Knoten sind enthalten, d(s) = 0 (Kosten des Startknoten auf 0 setzen). Alle anderen d(u) werden auf undefiniert gesetzt, weil deren Schätzwerte noch nicht bekannt sind.
-2.Erweiterung: Jetzt wird die Greedy-Auswahlregel verwendet, d.h. man sucht in Q nach dem Knoten mit dem kleinsten Schätzwert und entfernt diesen aus Q. (Streng genommen wird die Lösung nicht erweitert, da die Lösungsmenge nicht explizit konstruiert wird. T entspricht V/Q)
-3.Aktualisierung: Nachfolger von v durchgehen und deren Schätzwerte d(u) ggf. aktualisieren, falls diese nun schneller erreichbar sind.
+\parindent0pt Zudem wird davon ausgegangen, dass die Kantenkosten nicht negativ sind.
 
--wenn man zu jedem Knoten u den Vorgänger p(u) = v in einer Liste speichert, lässt sich so zu jedem Knoten der kürzeste Pfad finden 
-(s, ... , p(p(u)),p(u),u) 
+\subsection{Das Optimalitätsprinzip}
+Dem Dijkstra-Algorithmus liegt das Optimalitätsprinzip zugrunde:
+
+\parindent0pt Für jeden kürzesten Pfad p=(v{\tiny 0},v{\tiny 1},...,v{\tiny k}) von v{\tiny 0} nach v{\tiny k} ist jeder Teilweg p'=(v{\tiny i}, ..., v{\tiny j}) mit $0 \le i < j \le k$ ein kürzester Weg von v{\tiny i} nach v{\tiny j}.
+
+\parindent0pt Das bedeutet kurz gesagt, dass man für alle möglichen Teilpfade annimmt, dass sie optimal sind.
+Dass diese Annahme stimmt, lässt sich mittels Widerspruchbeweis nachweisen: 
+
+\parindent0pt Man geht vom Gegenteil aus, nämlich dem Fall, dass neben dem Pfad p' von v{\tiny i} nach v{\tiny j} ein anderer, kürzerer Pfad p'' von v{\tiny i }nach v{\tiny j} existiert. Dann müsste man p' durch p'' ersetzen (denn p'' ist kürzer). Damit würde sich auch der Gesamtpfad von v{\tiny 0} nach v{\tiny k} verkürzen. Da unser Pfad p von v{\tiny 0} nach v{\tiny k} bereits der kürzeste war, ist das  ein Widerspruch. \footnote{OTTMANN, Thomas; WIDMAYER Peter: Algorithmen und Datenstrukturen, Reihe Informatik Bd. 70, Mannheim: BI-Wissenschaftsverlag, 1990, S.573, Z.1-5}
+
+
+\subsection{Funktionsweise des Algorithmus}
+Auf welche Weise findet man nun zur optimalen Lösung?
+Die Grundidee besteht darin, für jeden Knoten die Pfadkosten zu schätzen und die bestehende Lösungsmenge mit dem Knoten zu erweitern, welcher den geringsten Schätzwert aufweist. 
+
+\parindent0pt Diese Arbeitsweise entspricht dem Greedy-Entwurfsmuster (engl. gierig): Nach einem Auswahlkriterium (die sogenannte Greedy-Regel) wird aus einer Menge das Element zur Erweiterung der Lösung gewählt, das den meisten Nutzen verspricht. In diesem Fall ist die Greedy-Regel das Verlangen nach dem kleinsten Schätzwert.
+
+\parindent0pt Dijkstra geht bei seinem Algorithmus folgendermaßen vor: Er unterteilt die Knoten des Graphen zunächst einmal in drei Gruppen: Die Knoten, deren Schätzwert bereits feststehen ("black nodes"\footnote{DIJKSTRA Edsger W., FEIJEN W.H.J.: A Method of Programming,Cornwall: Addison-Wesley Publishing Company,1988, S.107 Z.24}), deren Nachfolger ("grey nodes"\footnote{vergl. Ebd., S.108, Z.2-3} sowie unerreichbare Knoten, deren Schätzwerte gänzlich unbekannt sind ("white nodes" \footnote{vergl. Ebd., S.108, Z.3}).
+
+\begin{figure}[h]
+\centering
+\includegraphics[width = 8cm]{knotentypen.jpg}
+\caption{Knotentypen {\tiny (Quelle: OTTMANN, Thomas; WIDMAYER Peter: Algorithmen und Datenstrukturen, Reihe Informatik Bd. 70, Mannheim: BI-Wissenschaftsverlag, 1990, S.573 Abb. 8.19)} }
+\label{a1}
+\end{figure}
+
+
+\parindent0pt Wenn keine grauen Knoten vorhanden sind, lässt sich die Lösungsmenge nicht erweitern. 
+
+\parindent0pt Ansonsten muss aus den grauen Knoten einer ausgewählt werden, der schwarz werden soll, d.h. der Knoten, mit dem die Lösungsmenge erweitert wird. Alle vorherigen Pfade bestehen dabei ausschließlich aus schwarzen Knoten, d.h. Knoten die mit endgültig festgelegten Schätzwerten der Lösungsmenge bereits hinzugefügt wurden.
+
+\parindent0pt Um zu bestimmen, welcher graue Knoten gewählt wird muss man die Kosten seines speziellen Pfades bestimmten \footnote{vergl. Ebd., S.108,Z.8-12}, d.h. den Pfad ausgehend vom Startknoten s bis hin zur Kante vom letzten schwarzen Knoten zum aktuellen grauen Knoten. Der Knoten, dessen spezieller Pfad am kostengünstigsten ist, wird in die Menge der schwarzen Knoten aufgenommen und aus der Menge der grauen entfernt. Ist dieser Schritt vollzogen, müssen noch seine Nachfolger behandelt werden. Dabei gibt es für jeden Nachfolger drei Möglichkeiten:
+
+\parindent0pt Fall 1: Der Nachfolger ist weiß, d.h. er hat noch keinen Schätzwert. Dann wird dieser jetzt bestimmt und der Knoten wird grau.
+
+\parindent0pt Fall 2: Der Nachfolger ist grau. Dann muss verglichen werden, ob der aktuelle Schätzwert geringer ist als der vorherige, und wenn dies zutrifft, wird der Wert entsprechend aktualisiert. (Das ist immer dann der Fall, wenn man einen kostengünstigeren Pfad für den entsprechenden Knoten gefunden hat.)
+
+\parindent0pt Fall 3: Der Nachfolger ist schwarz. Dann steht sein Schätzwert bereits fest und er kann ignoriert werden.
+
+\subsection{Realisierung}
+Um dies umzusetzen, geht Dijkstra folgendermaßen vor: In einem Array werden die Farben der Knoten gespeichert. Ein weiteres Array dient der Speicherung der Schätzwerte. 
+
+\parindent0pt Da der Knoten mit minimalen Pfadkosten nur aus den grauen gewählt wird, ist es sinnvoll, ein Feld für diese anzulegen, wobei eine Variable, die zugleich als Zeiger dient, deren Anzahl speichert.
+
+\parindent0pt Des weiteren werden zu jedem Knoten deren unmittelbare Vorgänger gespeichert, sodass sich der vollständige Pfad zu jedem Knoten zurückverfolgen lässt (Rekursion).
+
+\parindent0pt Eingegeben wird ein Graph zusammen mit Startknoten s und Zielknoten v. Ist v nicht von s aus erreichbar, sind die zurückgegeben Pfadkosten 0. Ansonsten wird die Länge zurückgegeben.
+
+\parindent0pt Das konkrete Vorgehen sieht nun folgendermaßen aus: \\
+
+\parindent0pt \underline{1. Initialisierung:} Alle Knoten werden auf weiß gesetzt, der Startknoten s wird grau.
+
+\parindent0pt \underline{2. Erweiterung:} Der Knoten mit minimalem Schätzwert wird aus der Menge der grauen Knoten ausgewählt und herausgenommen. Er wird auf schwarz gesetzt, sein Schätzwert ist nun endgültig.
+
+\parindent0pt \underline{3. Aktualisierung: }Nun werden alle Nachfolger betrachtet. Deren Schätzwerte werden gegebenenfalls aktualisiert, wenn deren Pfadkosten nun geringer sind. \\ 
+
+\parindent0pt Der Algorithmus terminiert, wenn alle grauen Knoten abgearbeitet sind bzw. wenn der letzte Knoten schwarz ist. \\
+
+Natürlich muss man nicht exakt wie Dijkstra vorgehen und die entsprechenden Farbstufen speichern. Man kann den Algorithmus auch umsetzen, indem man die Schätzwerte in einem Array speichert und die Knoten in einer Menge Q. Am Anfang setzt man alle Schätzwerte auf undefiniert (das entspricht den weißen Knoten). Die Knoten aus Q, deren Schätzwert feststeht, werden aus Q entfernt (d.h. die schwarzen Knoten entsprechen V/Q). Alle übrigen Knoten in der Menge sind mit den grauen Knoten gleichzusetzen (vorläufige Schätzwerte). Das grundlegende Vorgehen ist bei einer solchen Implementierung gleich. 
+
 
 
 \section{Komplexität}
 
--\textbf{O(m²) }bei schlechter Implementierung
--bei Implementierung mit Priority-Queue in geeigneter Datenstruktur (z.B. heapq in Python) lässt sich  eine deutlich bessere Laufzeit von \textbf{O(k*log m)} erreichen [k = Kantenzahl des Graphen]
+\subsection{Ursprüngliche Implementierung}
+
+Das Initialisieren der Arrays benötigt jeweils $O(m)$ Schritte, wobei m die Kardinalität der Knotenmenge des Graphen ist.
+Die äußere Schleife arbeitet alle grauen Knoten ab und benötigt daher ebenfalls $O(m)$ Schritte. Das Bestimmen des Minimums braucht ebenfalls $O(m)$ Schritte.
+Das Aktualisieren der Nachfolger benötigt $O(deg(v))$ Schritte, also die Anzahl der ausgehenden Kanten des Knotens v, die maximal k beträgt (Gesamtzahl Kanten). Da in jedem Fall gilt, dass k < m (jede Kante mündet in 2 Knoten), können wir dies vernachlässigen, ebenso wie die übrigen Operationen, die konstant sind.
+Insgesamt ergibt sich so eine Laufzeit von $O(m^{2})$,\footnote{OTTMANN, Thomas; WIDMAYER Peter: Algorithmen und Datenstrukturen, Reihe Informatik Bd. 70, Mannheim: BI-Wissenschaftsverlag, 1990,S.576,Z.13} da m mal das Minimum in $O(m)$ bestimmt wird.
+Das ist bei dünnen Graphen, also Graphen mit wenig Kanten im Verhältnis zur Knotenzahl sehr ineffizient. Im Vergleich zu günstigeren Implementierungen ist die Laufzeit recht hoch.
+
+\subsection{Implementierung mit Heap}
+Die von Dijkstra vorgeschlagene Implementierung lässt sich verbessern, indem man zur Speicherung der grauen Knoten einen Heap einsetzt, denn in einem Heap lässt sich das Bestimmen des Minimums und dessen Entfernen in $O(log m)$ bestimmen.
+
+\parindent0pt Das Einfügen eines Elementes beträgt ebenfalls $O(log m)$ Schritte.
+
+\parindent0pt Zwar ist das gezielte Löschen von Knoten mit veralteten Werten nicht möglich, sodass eventuell mehrere Knoten mit gleichen Werten existieren, dies ist jedoch nicht weiter schlimm, "wenn man für jeden Knoten nur die erste Entnahme dieses Knotens aus dem Heap beachtet und alle weiteren ignoriert".\footnote{vergl. Ebd.S.576 Z.29-31} Damit dies funktioniert, muss man speichern, welche Knoten bereits betrachtet wurden und welche nicht.
+
+\parindent0pt Jede Kante erhält maximal einen Eintrag im Heap, also enthält dieser nie mehr als k Kanten. Damit kostet das Einfügen $k*log(m)$ Rechenschritte, ebenso wie das Entfernen. Somit ergibt sich für die Implementierung mit Heap eine Laufzeit von $O(k*log(m))$\footnote{vergl. Ebd., S. 576 Z.36}, was den Algorithmus bei dünnen Graphen sehr effizient macht.
+Bei sehr dichten Graphen mit $k = \Omega (m^{2})$ schneidet der ursprüngliche Dijkstra dagegen besser ab.
+
+\parindent0pt Durch die Verwendung eines speziellen Heaps, dem Fibonacci-Heap, lässt sich eine Laufzeit von $O(k + m * log(m))$ \footnote{vergl. Ebd., S.577 Z.10} erreichen, wodurch die Implementierung mit einem Heap auch bei dichten Graphen effizienter ist.
+
 
 \section{Implementierung}
 
@@ -83,14 +146,20 @@ print( shortest_path(0,3,p))
 \end{lstlisting}
 
 \section{Anwendungsbereiche}
-Der Dijkstra-Algorithmus wird noch heute oft verwendet und bietet einen großen Nutzen beispielsweise im Verkehrswesen.
-So wird er oft für die Routenplanung von Warentransporten verwendet, aber auch für die Streckenberechnungen von Zügen und Flugzeugen.
-Hier bedeutet jeder Umweg höhere Transportkosten, da Treibstoff und Fahrtzeit steigen.
+Es stellt sich natürlich die Frage nach dem praktischen Nutzen des Dijkstra-Algorithmus. Diese Frage lässt sich gar nicht so schnell beantworten, da er vielseitig einsetzbar ist und in mehreren Bereichen Anwendung findet.
 
-Doch auch in Kommunikationsnetzwerken findet der Weg-Findungs-Algorithmus von Dijkstra noch immer Verwendung.
-Zwischen Rechnernetzen findet Routing statt. Hier kosten Umwege wertvolle Kapazitäten, welche sehr begrenzt sind. Somit ist es sinnvoll, die kürzesten Kommunikationswege zu finden, damit die Kapazitäten nicht unnötig belastet werden.
+\parindent0pt Allgemein gesprochen ist dies überall, wo Routenplanung vonnöten ist.
 
+\parindent0pt
+Das kann z.B. Warentransport aller Art sein. Ganz gleich, ob man die Güter per Flugzeug, Bahn oder LKW transportiert, die Routen in dem jeweiligen Verkehrsnetz müssen entsprechend geplant werden, damit die Waren schnell und günstig am Zielort ankommen. Die Kosten einer Route müssen dabei nicht unbedingt die Entfernung an sich sein, auch andere Faktoren wie z.B. Mautkosten können hinzukommen. Diese spiegeln sich dann in den Kantenkosten wieder.
 
--Informationsnetzwerke (Anzahl Links Domain Suchmaschine)
+\parindent0pt Was für Warentransport gilt, lässt sich auch auf den Personentransport übertragen. Wer eine möglichst günstige Reiseroute sucht, mit der er sein Reiseziel am schnellsten erreicht, kann diese mit Dijkstra errechnen.
+
+\parindent0pt Ein weiteres bedeutendes Anwendungsfeld ist Routing bei Rechnernetzen. Auf der Ebene der Vermittlungsschicht werden Pakete von der Quelle zum Ziel weitergeleitet. Dieser Weg besteht aus mehreren Teilstrecken, sogenannten Hops. \footnote{TANENBAUM,Andrew; WETHERALL, David: Computernetzwerke, München: Pearson Deutschland GmbH,2012, Kap. 5.2 Routing Algorithmen, S.420 Z. 1-7} Zur Auswahl dieser Hops wird unter anderem Dijkstra verwendet. 
+
+\parindent0pt
+Als Maß zur Bewertung der Teilstrecken kann die Anzahl der Teilstrecken gewählt werden, was allerdings sehr unpräzise ist, oder die physikalische Entfernung. Ein anderes Maß stellt die mittlere Übertragungszeit einer Teilstrecke für ein Paket dar. Die mittlere Übertragungszeit muss dazu regelmäßig aktualisiert werden. Im letzten Fall wäre der "kürzeste" Pfad der schnellste.\footnote{Ebd.,S.424, Z.1-5}
+Allgemein werden die Kosten jedoch als "Funktion von Entfernung, Bandbreite, Durchschnittsverkehr, Übertragungskosten, gemessener Übertragungszeit und weiterer Faktoren"\footnote{Ebd.,S.424 Z.6-8} berechnet.
+
 
 DIJKTRA - ALGORITHMUS
