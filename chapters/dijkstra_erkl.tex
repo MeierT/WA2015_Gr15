@@ -15,12 +15,9 @@
 Das Shortest-Path Problem ist in der Literatur manchmal auch unter dem Namen Single-Source Shortest Path Problem zu finden. 
 Es behandelt die Frage, wie man in einem Graphen ausgehend von einem gegebenen Anfangsknoten s (engl. Source) zu jedem anderen Knoten des Graphen den kürzesten Pfad findet \footnote{OTTMANN, Thomas; WIDMAYER Peter: Algorithmen und Datenstrukturen, Reihe Informatik Bd. 70, Mannheim: BI-Wissenschaftsverlag, 1990, S. 572, Z. 19-20}. Mit kurz ist hierbei nicht die Länge gemeint, sondern die Minimierung der Kantenkosten. Im Allgemeinen ist mit Länge nicht die tatsächliche Länge gemeint, sondern die Pfadkosten.
 
-\subsection{Mathematische Definition}
-
-[HIER DEFINITION EINFÜGEN, AD Skript S.132]
 
 \subsection{Zur Eingabe}
-Die Eingabe besteht stets aus gerichteten Graphen. Hierbei muss jedoch angemerkt werden, dass sich jeder ungerichtete Graph leicht in einen gerichteten Graph umwandeln lässt, indem man für jede Kante \{u,v\} die Kanten (u,v) und (v,u) mit gleichen Kosten einführt.\footnote{AD Skript, S.133 Z.8-13} Somit findet der Dijkstra-Algorithmus auch für ungerichtete Graphen Anwendung, solange man sie vorher in einen Digraphen überführt. 
+Die Eingabe besteht stets aus gerichteten Graphen. Hierbei muss jedoch angemerkt werden, dass sich jeder ungerichtete Graph leicht in einen gerichteten Graph umwandeln lässt, indem man für jede Kante \{u,v\} die Kanten (u,v) und (v,u) mit gleichen Kosten einführt.\footnote{Vorlesungsskript Algorithmendesign, Prof.Dr.Heinz Schmitz, Stand 6. April 2015, S.133 Z.8-13} Somit findet der Dijkstra-Algorithmus auch für ungerichtete Graphen Anwendung, solange man sie vorher in einen Digraphen überführt. 
 
 \parindent0pt Zudem wird davon ausgegangen, dass die Kantenkosten nicht negativ sind.
 
@@ -82,7 +79,6 @@ Um dies umzusetzen, geht Dijkstra folgendermaßen vor: In einem Array werden die
 
 \parindent0pt Der Algorithmus terminiert, wenn alle grauen Knoten abgearbeitet sind bzw. wenn der letzte Knoten schwarz ist. \\
 
-[Anmerkung: Die genaue Implementierung steht auf S.111. Hab sie bei images reingepackt, falls ihr euch die mal angucken wollt]
-
+Natürlich muss man nicht exakt wie Dijkstra vorgehen und die entsprechenden Farbstufen speichern. Man kann den Algorithmus auch umsetzen, indem man die Schätzwerte in einem Array speichert und die Knoten in einer Menge Q. Am Anfang setzt man alle Schätzwerte auf undefiniert (das entspricht den weißen Knoten). Die Knoten aus Q, deren Schätzwert feststeht, werden aus Q entfernt (d.h. die schwarzen Knoten entsprechen V/Q). Alle übrigen Knoten in der Menge sind mit den grauen Knoten gleichzusetzen (vorläufige Schätzwerte). Das grundlegende Vorgehen ist bei einer solchen Implementierung gleich. 
 
 \end{document}
