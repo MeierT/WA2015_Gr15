@@ -4,8 +4,7 @@
 \section{Definition Graph}
 
 
--Für Dijkstra auf gerichtete Graphen ausgelegt.
-
+\begin{theorem}
 Ein \textbf{Graph} G besteht aus einer Menge X [deren Elemente Knotenpunkte genannt werden] und einer Menge U, wobei jedem Element u $\in$ U in eindeutiger Weise ein geordnetes oder ungeordnetes Paar von [nicht notwendig verschiedenen] Knotenpunkten, x,y $\in$ X zugeordnet ist.
 Ist jedem u $\in$ U ein geordnetes Paar von Knoten zugeordnet, so heißt der Graf \textbf{gerichtet}, und wir schreiben 
 	$G= (X, U)$.
@@ -14,15 +13,19 @@ Die Elemente von U werden in diesem Fall als \textbf{Bögen} bezeichnet.
 Ist jedem u $\in$ U ein ungeordnetes Paar von Knotenpunkten zugeordnet, so heißt der Graph \textbf{ungerichtet} und wir schreiben 
 	$G=[X,U]$. 
 Die Elemente von U bezeichnen wir dann als \textbf{Kanten.}
- \footnote{\cite{Bieß:9}}
+\end{theorem} \footnote{Bieß, Graphentheorie, S.9}\\
+
+[Grafik hier einfügen]
 
 
-Ein gerichteter Graph besteht somit aus einer Menge aus geordneten Knotenpunkten. Dadurch, das diese Punkte geordnet sind, ist eine Verlaufsrichtung festgelegt, in welcher der Graph zeigt.
-Somit kann sich eine geometrische Figur ergeben.
+Ein gerichteter Graph, auch Digraph genannt,  besteht somit aus einer Menge aus geordneten Knotenpunkten \footnote{Ottman, Datenstrukturen und Algorithmen, S590}. Dadurch, dass diese Punkte geordnet sind, also zu jedem Element U genau ein Paar Knotenpunkte zugeordnet wird, ist eine Verlaufsrichtung festgelegt, in welcher der Graph zeigt.
 
+Die Verbindungslinien zwischen zwei Knotenpunkten werden Kanten genannt, welchen Kosten zugeordnet sind. Diese Kosten sind im Vornherein festgelegte, nicht negative Werte. Sie sind  nicht mit der Kantenlänge zu verwechseln.
 
-Wenn man diese Punkte als Richtungen nun als Straßennetz sähe, würde sich durch die Punkte ein Straßenverlauf abbilden mit unterschiedlichen Verlaufsrichtungen.
-Somit verbünde nicht jede Strecke direkt jeden Punkt. Um jenen kürzesten Weg zu finden, der zwei bestimmte Punkte miteinander verbindet, kann man den Dijkstra-Algorithmus anwenden, welcher im Folgenden erklärt wird.
+Somit kann sich eine geometrische Figur ergeben.\\
+
+Weiterhin gibt es auch ungerichtete Graphen, welche jedoch in dieser Ausarbeitung keine Bedeutung haben und somit an dieser Stelle nicht weiter erläutert werden.
+In der folgenden Arbeit wird jedoch mit anderen Bezeichnungen gearbeitet. Anstelle von der von Gieß gebrauchten Bezeichnung G=(X,U), wird G=(V,E) verwendet.
 
 
 
