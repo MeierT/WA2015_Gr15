@@ -30,7 +30,7 @@ Die Grundidee besteht darin, für jeden Knoten die Pfadkosten zu schätzen und d
 \parindent0pt Diese Arbeitsweise entspricht dem Greedy-Entwurfsmuster (engl. gierig): Nach einem Auswahlkriterium (die sogenannte Greedy-Regel) wird aus einer Menge das Element zur Erweiterung der Lösung gewählt, das den meisten Nutzen verspricht. In diesem Fall ist die Greedy-Regel das Verlangen nach dem kleinsten Schätzwert.
 Auf das Greedy-Prinzip wird in dieser Arbeit jedoch nicht tiefergehend eingegangen.
 
-\parindent0pt Dijkstra geht bei seinem Algorithmus folgendermaßen vor: Er unterteilt die Knoten des Graphen zunächst einmal in drei Gruppen: Die Knoten, deren Schätzwert bereits feststehen ("black nodes"\footnote{DIJKSTRA Edsger W., FEIJEN W.H.J.: A Method of Programming,Cornwall: Addison-Wesley Publishing Company,1988, S.107 Z.24}), deren Nachfolger ("grey nodes")\footnote{vergl. Ebd., S.108, Z.2-3} sowie unerreichbare Knoten, deren Schätzwerte gänzlich unbekannt sind ("white nodes" \footnote{vergl. Ebd., S.108, Z.3}).
+\parindent0pt Dijkstra geht bei seinem Algorithmus folgendermaßen vor: Er unterteilt die Knoten des Graphen zunächst einmal in drei Gruppen: Die Knoten, deren Schätzwert bereits feststehen ("black nodes"\footnote{DIJKSTRA Edsger W., FEIJEN W.H.J.: A Method of Programming,Cornwall: Addison-Wesley Publishing Company,1988, S.107 Z.24}), deren Nachfolger ("grey nodes"\footnote{vergl. Ebd., S.108, Z.2-3}) sowie unerreichbare Knoten, deren Schätzwerte gänzlich unbekannt sind ("white nodes" \footnote{vergl. Ebd., S.108, Z.3}).
 
 \begin{figure}[h]
 \centering
@@ -40,7 +40,7 @@ Auf das Greedy-Prinzip wird in dieser Arbeit jedoch nicht tiefergehend eingegang
 \end{figure}
 
 
-\parindent0pt Des besseren Leseflusses wegen, werden die "black nodes", "white nodes" und "grey nodes" in der deutschen Übersetzung verwendet.
+\parindent0pt Im folgenden werden zur besseren Lesbarkeit für \glqq black nodes\grqq, \glqq grey nodes\grqq und \glqq white nodes\grqq jeweils deren deutsche Übersetzungen verwendet. \\
  Wenn keine grauen Knoten vorhanden sind, lässt sich die Lösungsmenge nicht erweitern. 
 
 \parindent0pt Ansonsten muss aus den grauen Knoten einer ausgewählt werden, der schwarz werden soll, d.h. der Knoten, mit dem die Lösungsmenge erweitert wird. Alle vorherigen Pfade bestehen dabei ausschließlich aus schwarzen Knoten, d.h. Knoten die mit endgültig festgelegten Schätzwerten der Lösungsmenge bereits hinzugefügt wurden.
@@ -83,7 +83,7 @@ Natürlich kann auch eine Alternative zu Dijkstras Vorgehen mit Speicherung der 
 Der folgende Abschnitt bezieht sich direkt auf Dijkstras eigene Implementierung, die von Ottman und Widmayer aufgegriffen wurde /footnote{Vgl. }
 Das Initialisieren der Arrays benötigt jeweils $O(m)$ Schritte, wobei m die Kardinalität der Knotenmenge des Graphen ist.
 Die äußere Schleife arbeitet alle grauen Knoten ab und benötigt daher ebenfalls $O(m)$ Schritte. Das Bestimmen des Minimums braucht ebenfalls $O(m)$ Schritte.
-Das Aktualisieren der Nachfolger benötigt $O(deg(v))$ Schritte, also die Anzahl der ausgehenden Kanten des Knotens v, die maximal k beträgt (Gesamtzahl Kanten). Da in jedem Fall gilt, dass k &<& m (jede Kante mündet in zwei Knoten), kann dies vernachlässt werden, ebenso wie die übrigen verwendeten Operationen, die konstant sind.
+Das Aktualisieren der Nachfolger benötigt $O(deg(v))$ Schritte, also die Anzahl der ausgehenden Kanten des Knotens v, die maximal k beträgt (Gesamtzahl Kanten). Da in jedem Fall gilt, dass k $<$ m (jede Kante mündet in zwei Knoten), kann dies vernachlässt werden, ebenso wie die übrigen verwendeten Operationen, die konstant sind.
 Insgesamt ergibt sich so eine Laufzeit von $O(m^{2})$,\footnote{OTTMANN, Thomas; WIDMAYER Peter: Algorithmen und Datenstrukturen, Reihe Informatik Bd. 70, Mannheim: BI-Wissenschaftsverlag, 1990,S.576,Z.13} da m mal das Minimum in $O(m)$ bestimmt wird.
 Das ist bei dünnen Graphen, also Graphen mit wenig Kanten im Verhältnis zur Knotenzahl sehr ineffizient. Im Vergleich zu günstigeren Implementierungen ist die Laufzeit recht hoch.
 
@@ -102,7 +102,7 @@ Bei sehr dichten Graphen, also Graphen mit vielen Kanten,  mit $k = \Omega (m^{2
 
 \section{Implementierung}
 
-\Das folgende Codebeispiel bezieht sich auf die bereits beschriebene Implementierung mit Heap /footnote{Vgl. Abs. 3.2.2, "Implementierung mit Heap"}
+Das folgende Codebeispiel bezieht sich auf die bereits beschriebene Implementierung mit Heap \footnote{Vgl. Abs. 3.2.2, "Implementierung mit Heap"}
 
 \lstset{language=Python}
 \begin{lstlisting}
