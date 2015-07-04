@@ -39,7 +39,8 @@ In der folgenden Arbeit wird jedoch mit anderen Bezeichnungen gearbeitet. Anstel
 \textbf{Speicherung in einer Adjazenzmatrix} \\
 Der Graph G=(V,E) wird in einer booleschen m*m Matrix gespeichert ($m = \sharp V$), mit 1 falls $(i,j) \in E$ und 0 falls nicht. \\
 Nachteil: Dies erfordert unverhältnismäßig viel Speicher, wenn der Graph nur wenig    	  Kanten hat. Abhilfe schafft eine Zusatzmatrix, die nur bedeutsame Einträge speichert.
- Insgesamt ist eine Adjazenzmatrix aber trotzdem ineffizient bei Graphen mit wenig Kanten. \\
+ Insgesamt ist eine Adjazenzmatrix aber trotzdem ineffizient bei Graphen mit wenig Kanten. 
+  \footnote{OTTMANN, Thomas; WIDMAYER Peter: Algorithmen und Datenstrukturen, Reihe Informatik Bd. 70, Mannheim: BI-Wissenschaftsverlag, 1990, S.539-541, Speicherung in einer Adjazenzmatrix}\\
  
 
 \begin{figure}[h]
@@ -52,7 +53,8 @@ Nachteil: Dies erfordert unverhältnismäßig viel Speicher, wenn der Graph nur 
 \textbf{Speicherung in Adjazenzlisten}\\
 Für jeden Knoten wird eine lineare, verkettete Liste seiner ausgehenden Kanten gespeichert.
 Die Knoten werden als lineares Feld gespeichert (d.h. jeder Knoten im Feld zeigt auf eine Liste). \\
-Dies ist effizienter als eine Adjazenzmatrix, weil kein Speicherplatz verschwendet wird. \\
+Dies ist effizienter als eine Adjazenzmatrix, weil kein Speicherplatz verschwendet wird.
+ \footnote{vergl. Ebd., S.541-542, Speicherung in Adjazenzlisten} \\
 
 \begin{figure}[h]
 \centering
@@ -64,7 +66,8 @@ Dies ist effizienter als eine Adjazenzmatrix, weil kein Speicherplatz verschwend
 \textbf{Speicherung in doppelt verketteten Listen}\\
 Jedes Element enthält Zeiger auf die beiden Nachbarelemente sowie auf eine Kantenliste (wie bei Adjazenzliste, s.o.).
 Diese Darstellung besitzt die den Adjazenzlisten fehlende Dynamik, ist aber natürlich komplizierter.
-
+ \footnote{vergl. Ebd., S.542-544, Speicherung in einer doppelt verketteten Pfeilliste}
+ 
 \begin{figure}[h]
 \centering
 \includegraphics[width = 8cm]{./chapters/adjazenzmatrix.jpg}
@@ -72,5 +75,4 @@ Diese Darstellung besitzt die den Adjazenzlisten fehlende Dynamik, ist aber nat�
 \label{a4}
 \end{figure}
 
-Quelle:
-Algorithmen und Datenstrukturen, T.Ottmann/P.Widmayer, Kap. 8 Graphenalgorithmen, S.539-544
+
