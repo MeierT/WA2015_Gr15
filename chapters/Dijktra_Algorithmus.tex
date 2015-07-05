@@ -80,7 +80,7 @@ Natürlich kann auch eine Alternative zu Dijkstras Vorgehen mit Speicherung der 
 
 \subsection{Ursprüngliche Implementierung}
 
-Der folgende Abschnitt bezieht sich direkt auf Dijkstras eigene Implementierung, die von Ottman und Widmayer aufgegriffen wurde /footnote{Vgl. }
+Der folgende Abschnitt bezieht sich direkt auf Dijkstras eigene Implementierung \footnote{DIJKSTRA Edsger W., FEIJEN W.H.J.: A Method of Programming,Cornwall: Addison-Wesley Publishing Company,1988, S.110-11}, die von Ottman und Widmayer aufgegriffen wurde \footnote{OTTMANN, Thomas; WIDMAYER Peter: Algorithmen und Datenstrukturen, Reihe Informatik Bd. 70, Mannheim: BI-Wissenschaftsverlag, 1990, S.573-574, Algorithmus}.\\
 Das Initialisieren der Arrays benötigt jeweils $O(m)$ Schritte, wobei m die Kardinalität der Knotenmenge des Graphen ist.
 Die äußere Schleife arbeitet alle grauen Knoten ab und benötigt daher ebenfalls $O(m)$ Schritte. Das Bestimmen des Minimums braucht ebenfalls $O(m)$ Schritte.
 Das Aktualisieren der Nachfolger benötigt $O(deg(v))$ Schritte, also die Anzahl der ausgehenden Kanten des Knotens v, die maximal k beträgt (Gesamtzahl Kanten). Da in jedem Fall gilt, dass k $<$ m (jede Kante mündet in zwei Knoten), kann dies vernachlässt werden, ebenso wie die übrigen verwendeten Operationen, die konstant sind.
