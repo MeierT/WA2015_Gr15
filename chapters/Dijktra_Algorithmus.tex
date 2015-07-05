@@ -37,7 +37,10 @@ Die Grundidee besteht darin, für jeden Knoten die Pfadkosten zu schätzen und d
 \parindent0pt Diese Arbeitsweise entspricht dem Greedy-Entwurfsmuster (engl. gierig): Nach einem Auswahlkriterium (die sogenannte Greedy-Regel) wird aus einer Menge das Element zur Erweiterung der Lösung gewählt, das den meisten Nutzen verspricht. In diesem Fall ist die Greedy-Regel das Verlangen nach dem kleinsten Schätzwert.
 Auf das Greedy-Prinzip wird in dieser Arbeit jedoch nicht tiefergehend eingegangen.
 
-\parindent0pt Dijkstra geht bei seinem Algorithmus folgendermaßen vor: Er unterteilt die Knoten des Graphen zunächst einmal in drei Gruppen: Die Knoten, deren Schätzwert bereits feststehen ("black nodes"\footnote{DIJKSTRA Edsger W., FEIJEN W.H.J.: A Method of Programming,Cornwall: Addison-Wesley Publishing Company,1988, S.107 Z.24}), deren Nachfolger ("grey nodes"
+\parindent0pt Dijkstra geht bei seinem Algorithmus folgendermaßen vor: Er unterteilt die Knoten des Graphen zunächst einmal in drei Gruppen: Die Knoten, deren Schätzwert bereits feststehen ("black nodes"
+\cite[S.107 Z.24]{Dijk88}
+%\footnote{DIJKSTRA Edsger W., FEIJEN W.H.J.: A Method of Programming,Cornwall: Addison-Wesley Publishing Company,1988, S.107 Z.24})
+, deren Nachfolger ("grey nodes"
 Vgl. \cite[S. 108, Z.2-3]{OttWid90}
 %\footnote{vergl. Ebd., S.108, Z.2-3}
 ) sowie unerreichbare Knoten, deren Schätzwerte gänzlich unbekannt sind ("white nodes" 
@@ -99,11 +102,19 @@ Natürlich kann auch eine Alternative zu Dijkstras Vorgehen mit Speicherung der 
 
 \subsection{Ursprüngliche Implementierung}
 
-Der folgende Abschnitt bezieht sich direkt auf Dijkstras eigene Implementierung \footnote{DIJKSTRA Edsger W., FEIJEN W.H.J.: A Method of Programming,Cornwall: Addison-Wesley Publishing Company,1988, S.110-11}, die von Ottman und Widmayer aufgegriffen wurde \footnote{OTTMANN, Thomas; WIDMAYER Peter: Algorithmen und Datenstrukturen, Reihe Informatik Bd. 70, Mannheim: BI-Wissenschaftsverlag, 1990, S.573-574, Algorithmus}.\\
+Der folgende Abschnitt bezieht sich direkt auf Dijkstras eigene Implementierung 
+\cite[S.110-111]{Dijk88}
+%\footnote{DIJKSTRA Edsger W., FEIJEN W.H.J.: A Method of Programming,Cornwall: Addison-Wesley Publishing Company,1988, S.110-11}
+, die von Ottman und Widmayer aufgegriffen wurde 
+\cite[S.573-574, Algorithmus]{OttWid90}
+%\footnote{OTTMANN, Thomas; WIDMAYER Peter: Algorithmen und Datenstrukturen, Reihe Informatik Bd. 70, Mannheim: BI-Wissenschaftsverlag, 1990, S.573-574, Algorithmus}.\\
 Das Initialisieren der Arrays benötigt jeweils $O(m)$ Schritte, wobei m die Kardinalität der Knotenmenge des Graphen ist.
 Die äußere Schleife arbeitet alle grauen Knoten ab und benötigt daher ebenfalls $O(m)$ Schritte. Das Bestimmen des Minimums braucht ebenfalls $O(m)$ Schritte.
 Das Aktualisieren der Nachfolger benötigt $O(deg(v))$ Schritte, also die Anzahl der ausgehenden Kanten des Knotens v, die maximal k beträgt (Gesamtzahl Kanten). Da in jedem Fall gilt, dass k $<$ m (jede Kante mündet in zwei Knoten), kann dies vernachlässt werden, ebenso wie die übrigen verwendeten Operationen, die konstant sind.
-Insgesamt ergibt sich so eine Laufzeit von $O(m^{2})$,\footnote{OTTMANN, Thomas; WIDMAYER Peter: Algorithmen und Datenstrukturen, Reihe Informatik Bd. 70, Mannheim: BI-Wissenschaftsverlag, 1990,S.576,Z.13} da m mal das Minimum in $O(m)$ bestimmt wird.
+Insgesamt ergibt sich so eine Laufzeit von $O(m^{2})$,
+\cite[S.576 Z.13, Algorithmus]{OttWid90}
+%\footnote{OTTMANN, Thomas; WIDMAYER Peter: Algorithmen und Datenstrukturen, Reihe Informatik Bd. 70, Mannheim: BI-Wissenschaftsverlag, 1990,S.576,Z.13}
+ da m mal das Minimum in $O(m)$ bestimmt wird.
 Das ist bei dünnen Graphen, also Graphen mit wenig Kanten im Verhältnis zur Knotenzahl sehr ineffizient. Im Vergleich zu günstigeren Implementierungen ist die Laufzeit recht hoch.
 
 \subsection{Implementierung mit Heap}
@@ -111,12 +122,21 @@ Die von Dijkstra vorgeschlagene Implementierung lässt sich verbessern, indem zu
 
 \parindent0pt Das Einfügen eines Elementes beträgt ebenfalls $O(log m)$ Schritte.
 
-\parindent0pt Zwar ist das gezielte Löschen von Knoten mit veralteten Werten nicht möglich, sodass eventuell mehrere Knoten mit gleichen Werten existieren, dies ist jedoch nicht weiter schlimm, "wenn man für jeden Knoten nur die erste Entnahme dieses Knotens aus dem Heap beachtet und alle weiteren ignoriert".\footnote{vergl. Ebd.S.576 Z.29-31} Damit dies funktioniert, muss  gespeichert werden, welche Knoten bereits betrachtet wurden und welche nicht.
+\parindent0pt Zwar ist das gezielte Löschen von Knoten mit veralteten Werten nicht möglich, sodass eventuell mehrere Knoten mit gleichen Werten existieren, dies ist jedoch nicht weiter schlimm, "wenn man für jeden Knoten nur die erste Entnahme dieses Knotens aus dem Heap beachtet und alle weiteren ignoriert".
+Vgl. \cite[S.576 Z.29-31, Algorithmus]{OttWid90}
+%\footnote{vergl. Ebd.S.576 Z.29-31}
+ Damit dies funktioniert, muss  gespeichert werden, welche Knoten bereits betrachtet wurden und welche nicht.
 
-\parindent0pt Jede Kante erhält maximal einen Eintrag im Heap, also enthält dieser nie mehr als k Kanten. Damit kostet das Einfügen $k*log(m)$ Rechenschritte, ebenso wie das Entfernen. Somit ergibt sich für die Implementierung mit Heap eine Laufzeit von $O(k*log(m))$\footnote{vergl. Ebd., S. 576 Z.36}, was den Algorithmus bei dünnen Graphen sehr effizient macht.
+\parindent0pt Jede Kante erhält maximal einen Eintrag im Heap, also enthält dieser nie mehr als k Kanten. Damit kostet das Einfügen $k*log(m)$ Rechenschritte, ebenso wie das Entfernen. Somit ergibt sich für die Implementierung mit Heap eine Laufzeit von $O(k*log(m))$
+Vgl. \cite[S. 576 Z.36]{OttWid90}
+%\footnote{vergl. Ebd., S. 576 Z.36}
+, was den Algorithmus bei dünnen Graphen sehr effizient macht.
 Bei sehr dichten Graphen, also Graphen mit vielen Kanten,  mit $k = \Omega (m^{2})$ schneidet der ursprüngliche Dijkstra dagegen besser ab.
 
-\parindent0pt Durch die Verwendung eines speziellen Heaps, dem Fibonacci-Heap, lässt sich eine Laufzeit von $O(k + m * log(m))$ \footnote{vergl. Ebd., S.577 Z.10} erreichen, wodurch die Implementierung mit einem Heap auch bei dichten Graphen effizienter ist.
+\parindent0pt Durch die Verwendung eines speziellen Heaps, dem Fibonacci-Heap, lässt sich eine Laufzeit von $O(k + m * log(m))$ 
+\cite[S. 577 Z.10]{OttWid90}
+%\footnote{vergl. Ebd., S.577 Z.10}
+ erreichen, wodurch die Implementierung mit einem Heap auch bei dichten Graphen effizienter ist.
 
 
 \section{Implementierung}
@@ -179,8 +199,16 @@ Das kann z.B. Warentransport aller Art sein. Ganz gleich, ob der Transport der G
 
 \parindent0pt Was für Warentransport gilt, lässt sich auch auf den Personentransport übertragen. Wer eine möglichst günstige Reiseroute sucht, mit der er sein Reiseziel am schnellsten erreicht, kann diese mit Dijkstra errechnen.
 
-\parindent0pt Ein weiteres bedeutendes Anwendungsfeld ist Routing bei Rechnernetzen. Auf der Ebene der Vermittlungsschicht werden Pakete von der Quelle zum Ziel weitergeleitet. Dieser Weg besteht aus mehreren Teilstrecken, sogenannten Hops. \footnote{TANENBAUM,Andrew; WETHERALL, David: Computernetzwerke, München: Pearson Deutschland GmbH,2012, Kap. 5.2 Routing Algorithmen, S.420 Z. 1-7} Zur Auswahl dieser Hops wird unter anderem Dijkstra verwendet. 
+\parindent0pt Ein weiteres bedeutendes Anwendungsfeld ist Routing bei Rechnernetzen. Auf der Ebene der Vermittlungsschicht werden Pakete von der Quelle zum Ziel weitergeleitet. Dieser Weg besteht aus mehreren Teilstrecken, sogenannten Hops. 
+\cite[S.420 Z. 1-7]{Tan}
+%\footnote{TANENBAUM,Andrew; WETHERALL, David: Computernetzwerke, München: Pearson Deutschland GmbH,2012, Kap. 5.2 Routing Algorithmen, S.420 Z. 1-7}
+ Zur Auswahl dieser Hops wird unter anderem Dijkstra verwendet. 
 
 \parindent0pt
-Als Maß zur Bewertung der Teilstrecken kann deren Anzahl gewählt werden, was allerdings bedingt durch das Fehlen weiterer Informationen (beispielsweise Bandbreite) unpräzise ist, oder die physikalische Entfernung. Ein anderes Maß stellt die mittlere Übertragungszeit einer Teilstrecke für ein Paket dar. Die mittlere Übertragungszeit muss dazu regelmäßig aktualisiert werden. Im letzten Fall wäre der "kürzeste" Pfad der schnellste.\footnote{Ebd.,S.424, Z.1-5}
-Allgemein werden die Kosten jedoch als "Funktion von Entfernung, Bandbreite, Durchschnittsverkehr, Übertragungskosten, gemessener Übertragungszeit und weiterer Faktoren"\footnote{Ebd.,S.424 Z.6-8} berechnet.
+Als Maß zur Bewertung der Teilstrecken kann deren Anzahl gewählt werden, was allerdings bedingt durch das Fehlen weiterer Informationen (beispielsweise Bandbreite) unpräzise ist, oder die physikalische Entfernung. Ein anderes Maß stellt die mittlere Übertragungszeit einer Teilstrecke für ein Paket dar. Die mittlere Übertragungszeit muss dazu regelmäßig aktualisiert werden. Im letzten Fall wäre der "kürzeste" Pfad der schnellste.
+\cite[S.424, Z.1-5]{OttWid90}
+%\footnote{Ebd.,S.424, Z.1-5}
+Allgemein werden die Kosten jedoch als "Funktion von Entfernung, Bandbreite, Durchschnittsverkehr, Übertragungskosten, gemessener Übertragungszeit und weiterer Faktoren"
+\cite[S.424 Z.6-8]{OttWid90}
+%\footnote{Ebd.,S.424 Z.6-8} 
+berechnet.
