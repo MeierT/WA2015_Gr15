@@ -26,7 +26,9 @@ Die Elemente von U bezeichnen wir dann als \textbf{Kanten.} \\
 \end{figure}
 
 
-Ein gerichteter Graph, auch Digraph genannt,  besteht somit aus einer Menge aus geordneten Knotenpunkten \footnote{Ottman, Datenstrukturen und Algorithmen, S590}. Dadurch, dass diese Punkte geordnet sind, also zu jedem Element U genau ein Paar Knotenpunkte zugeordnet wird, ist eine Verlaufsrichtung festgelegt, in welcher der Graph zeigt.
+Ein gerichteter Graph, auch Digraph genannt,  besteht somit aus einer Menge aus geordneten Knotenpunkten \cite[S. 590]{OttWid90}
+%\footnote{Ottman, Datenstrukturen und Algorithmen, S590}
+. Dadurch, dass diese Punkte geordnet sind, also zu jedem Element U genau ein Paar Knotenpunkte zugeordnet wird, ist eine Verlaufsrichtung festgelegt, in welcher der Graph zeigt.
 
 Die Verbindungslinien zwischen zwei Knotenpunkten werden Kanten genannt, welchen Kosten zugeordnet sind. Diese Kosten sind im Vornherein festgelegte, nicht negative Werte. Sie sind  nicht mit der Kantenlänge zu verwechseln.
 
@@ -43,9 +45,9 @@ In der folgenden Arbeit wird jedoch mit anderen Bezeichnungen gearbeitet. Anstel
 Der Graph G=(V,E) wird in einer booleschen m*m Matrix gespeichert ($m = \sharp V$), mit 1 falls $(i,j) \in E$ und 0 falls nicht. \\
 Nachteil: Dies erfordert unverhältnismäßig viel Speicher, wenn der Graph nur wenig    	  Kanten hat. Abhilfe schafft eine Zusatzmatrix, die nur bedeutsame Einträge speichert.
  Insgesamt ist eine Adjazenzmatrix aber trotzdem ineffizient bei Graphen mit wenig Kanten. 
-  \footnote{OTTMANN, Thomas; WIDMAYER Peter: Algorithmen und Datenstrukturen, Reihe Informatik Bd. 70, Mannheim: BI-Wissenschaftsverlag, 1990, S.539-541, Speicherung in einer Adjazenzmatrix}\\
+\cite[S. 539 - 541]{OttWid90} \\
+%\footnote{OTTMANN, Thomas; WIDMAYER Peter: Algorithmen und Datenstrukturen, Reihe Informatik Bd. 70, Mannheim: BI-Wissenschaftsverlag, 1990, S.539-541, Speicherung in einer Adjazenzmatrix}\\
  
-
 \begin{figure}[h]
 \centering
 \includegraphics[width = 8cm]{./chapters/adjazenzmatrix.jpg}
