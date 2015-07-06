@@ -23,7 +23,7 @@ Dem Dijkstra-Algorithmus liegt das Optimalitätsprinzip zugrunde:
 \parindent0pt Für jeden kürzesten Pfad p=(v{\tiny 0},v{\tiny 1},...,v{\tiny k}) von v{\tiny 0} nach v{\tiny k} ist jeder Teilweg p'=(v{\tiny i}, ..., v{\tiny j}) mit $0 \le i < j \le k$ ein kürzester Weg von v{\tiny i} nach v{\tiny j}.
 
 \parindent0pt Das bedeutet kurz gesagt, dass  für alle möglichen Teilpfade angenommen wird, dass sie optimal sind.
-Dass diese Annahme stimmt, lässt sich mittels Widerspruchbeweis nachweisen: 
+Dass diese Annahme stimmt, lässt sich mittels Widerspruchsbeweis nachweisen: 
 
 \parindent0pt Wird vom Gegenteil ausgegangen, nämlich dem Fall, dass neben dem Pfad p' von v{\tiny i} nach v{\tiny j} ein anderer, kürzerer Pfad p'' von v{\tiny i }nach v{\tiny j} existiert, Dann müsste p' durch p'' ersetzen werden (denn p'' ist kürzer). Damit würde sich auch der Gesamtpfad von v{\tiny 0} nach v{\tiny k} verkürzen. Da unser Pfad p von v{\tiny 0} nach v{\tiny k} bereits der kürzeste war, ist das  ein Widerspruch. 
 \cite[S. 573, Z.1-5]{OttWid90}
@@ -35,18 +35,18 @@ Auf welche Weise kann eine optimale Lösung gefunden werden?
 Die Grundidee besteht darin, für jeden Knoten die Pfadkosten zu schätzen und die bestehende Lösungsmenge mit dem Knoten zu erweitern, welcher den geringsten Schätzwert aufweist. 
 
 \parindent0pt Diese Arbeitsweise entspricht dem Greedy-Entwurfsmuster (engl. gierig): Nach einem Auswahlkriterium (die sogenannte Greedy-Regel) wird aus einer Menge das Element zur Erweiterung der Lösung gewählt, das den meisten Nutzen verspricht. In diesem Fall ist die Greedy-Regel das Verlangen nach dem kleinsten Schätzwert.
-Auf das Greedy-Prinzip wird in dieser Arbeit jedoch nicht tiefergehend eingegangen.
+Auf das Greedy-Prinzip wird in dieser Arbeit jedoch nicht tiefer gehend eingegangen.
 
-\parindent0pt Dijkstra geht bei seinem Algorithmus folgendermaßen vor: Er unterteilt die Knoten des Graphen zunächst einmal in drei Gruppen: Die Knoten, deren Schätzwert bereits feststehen ("black nodes"
-\cite[S.107 Z.24]{Dijk88}
-%\footnote{DIJKSTRA Edsger W., FEIJEN W.H.J.: A Method of Programming,Cornwall: Addison-Wesley Publishing Company,1988, S.107 Z.24})
-, deren Nachfolger ("grey nodes"
-Vgl. \cite[S. 108, Z.2-3]{OttWid90}
+\parindent0pt Dijkstra geht bei seinem Algorithmus folgendermaßen vor: Er unterteilt die Knoten des Graphen zunächst einmal in drei Gruppen: Die Knoten, deren Schätzwert bereits feststehen (\glqq black nodes \grqq
+\cite[S.107 Z.24]{Dijk88})
+%\footnote{DIJKSTRA Edsger W., FEIJEN W.H.J.: A Method of Programming,Cornwall: Addison-Wesley Publishing Company,1988, S.107 Z.24}
+, deren Nachfolger (\glqq grey nodes \grqq
+Vgl. \cite[S. 108, Z.2-3]{OttWid90})
 %\footnote{vergl. Ebd., S.108, Z.2-3}
-) sowie unerreichbare Knoten, deren Schätzwerte gänzlich unbekannt sind ("white nodes" 
-Vgl. \cite[S. 108, Z.3]{OttWid90}
+ sowie unerreichbare Knoten, deren Schätzwerte gänzlich unbekannt sind (\glqq white nodes \grqq
+Vgl. \cite[S. 108, Z.3]{OttWid90}).
 %\footnote{vergl. Ebd., S.108, Z.3}
-).
+
 
 \begin{figure}[h]
 \centering
@@ -110,7 +110,7 @@ Der folgende Abschnitt bezieht sich direkt auf Dijkstras eigene Implementierung
 %\footnote{OTTMANN, Thomas; WIDMAYER Peter: Algorithmen und Datenstrukturen, Reihe Informatik Bd. 70, Mannheim: BI-Wissenschaftsverlag, 1990, S.573-574, Algorithmus}.\\
 Das Initialisieren der Arrays benötigt jeweils $O(m)$ Schritte, wobei m die Kardinalität der Knotenmenge des Graphen ist.
 Die äußere Schleife arbeitet alle grauen Knoten ab und benötigt daher ebenfalls $O(m)$ Schritte. Das Bestimmen des Minimums braucht ebenfalls $O(m)$ Schritte.
-Das Aktualisieren der Nachfolger benötigt $O(deg(v))$ Schritte, also die Anzahl der ausgehenden Kanten des Knotens v, die maximal k beträgt (Gesamtzahl Kanten). Da in jedem Fall gilt, dass k $<$ m (jede Kante mündet in zwei Knoten), kann dies vernachlässt werden, ebenso wie die übrigen verwendeten Operationen, die konstant sind.
+Das Aktualisieren der Nachfolger benötigt $O(deg(v))$ Schritte, also die Anzahl der ausgehenden Kanten des Knotens v, die maximal k beträgt (Gesamtzahl Kanten). Da in jedem Fall gilt, dass k $<$ m (jede Kante mündet in zwei Knoten), kann dies vernachlässigt werden, ebenso wie die übrigen verwendeten Operationen, die konstant sind.
 Insgesamt ergibt sich so eine Laufzeit von $O(m^{2})$,
 \cite[S.576 Z.13, Algorithmus]{OttWid90}
 %\footnote{OTTMANN, Thomas; WIDMAYER Peter: Algorithmen und Datenstrukturen, Reihe Informatik Bd. 70, Mannheim: BI-Wissenschaftsverlag, 1990,S.576,Z.13}
@@ -122,7 +122,7 @@ Die von Dijkstra vorgeschlagene Implementierung lässt sich verbessern, indem zu
 
 \parindent0pt Das Einfügen eines Elementes beträgt ebenfalls $O(log m)$ Schritte.
 
-\parindent0pt Zwar ist das gezielte Löschen von Knoten mit veralteten Werten nicht möglich, sodass eventuell mehrere Knoten mit gleichen Werten existieren, dies ist jedoch nicht weiter schlimm, "wenn man für jeden Knoten nur die erste Entnahme dieses Knotens aus dem Heap beachtet und alle weiteren ignoriert".
+\parindent0pt Zwar ist das gezielte Löschen von Knoten mit veralteten Werten nicht möglich, sodass eventuell mehrere Knoten mit gleichen Werten existieren, dies ist jedoch nicht weiter schlimm, \glqq wenn man für jeden Knoten nur die erste Entnahme dieses Knotens aus dem Heap beachtet und alle weiteren ignoriert\grqq.
 Vgl. \cite[S.576 Z.29-31, Algorithmus]{OttWid90}
 %\footnote{vergl. Ebd.S.576 Z.29-31}
  Damit dies funktioniert, muss  gespeichert werden, welche Knoten bereits betrachtet wurden und welche nicht.
