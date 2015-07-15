@@ -1,0 +1,41 @@
+
+\setbeamertemplate{navigation symbols}{		%% removes navigation symbols
+	%% leer ist ok
+}
+
+\setbeamertemplate{headline} {
+	
+	\vspace{3mm}
+	%% 
+	\hspace{0.05\textwidth} \begin{Large} \insertsection \end{Large}
+	%% FH - Trier Logo
+	\hfill \includegraphics[width=35mm]{fhlogo_new.eps} \hspace{0.05\textwidth}
+
+	\vspace{1mm}
+
+	%% Line
+	\hspace{0.05\textwidth}
+	\textcolor{blue}{\noindent\rule{0.9\textwidth}{1.5pt}}
+}
+
+\setbeamertemplate{footline} {
+	\def\null{}
+	
+	%% Information to the presentation
+	\ifx\null\insertsection				%% == null -> no section exist for this page
+		%% leer
+	\else								%% != null -> section exist for this page
+		%% Line
+		\hspace{0.05\textwidth}
+		\noindent\rule{0.9\textwidth}{0.5pt}
+
+		%% vertical space
+		\vspace{1.1mm}
+
+		\hspace*{0.05\textwidth} \insertdate \hfill \insertauthor \hfill \thepage \hspace*{0.05\textwidth}
+
+	\fi 								%% if finished
+
+	%% vertical space
+	\vspace{4mm}
+}
