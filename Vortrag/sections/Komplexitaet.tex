@@ -1,0 +1,33 @@
+\begin{frame}
+	\begin{center}
+		\LARGE {\textbf{Komplexität}}
+	\end{center}
+\end{frame}
+
+\begin{frame}
+	\begin{block} <1-> {Ursprüngliche Implementierung}
+		\begin{itemize}
+			\item <2--> Einzelschritte:
+			\begin{itemize}
+				\item <3-> Initialisieren der Arrays je $O(m)$
+				\item <4-> Abarbeiten der grauen Knoten $O(m)$
+				\item <5-> Bestimmen des Minimums $O(m)$
+				\item <6-> Aktualisieren der Nachfolger $O(deg(v))$ \rightarrow $O(k)$
+			\end{itemize}
+			\item <7-> insgesamt Komplexität $O(m^{2})$
+		\end{itemize}
+	\end{block}	
+\end{frame}
+
+\begin{frame}
+	\begin{block} <1-> {Implementierung mit Heap}
+		\begin{itemize}
+			\item <1-> Vorteile:
+			\begin{itemize}
+				\item <2-> Heapoperationen in $O(log m)$
+				\item <3-> Bestimmen des Minimums in $O(log m)$
+			\end{itemize}
+			\item <4-> insgesamt Komplexität $O(k*log m)$
+		\end{itemize}
+	\end{block}		
+\end{frame}
