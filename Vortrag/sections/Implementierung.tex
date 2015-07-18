@@ -14,58 +14,14 @@
 
 \begin{frame}
 \frametitle{Kompletter Code}
-\lstset{language=Python}
-\begin{lstlisting}
-from heapq import heappush, heappop
 
-def dijkstra_pq(G,s):
-    m = len(G)                              #O(1)
-    pq = []       #priority queue           #O(1)
-    d = [None]*m  #kosten                   #O(m)
-    p = [None]*m  #vorgaenger		       #O(m)
-    d[s] = 0                                #O(1)
-    heappush(pq, (0,s))                     #O(log m)
-    while pq:                               #O(m)
-        (_,v) = heappop(pq)                 #O(log m)
-        for u in G[v]:                      #O(deg(v)) --> O(k)  
-            alt = d[v] + G[v][u]            #O(1)
-            if d[u]== None or alt < d[u]:   #O(1)
-                d[u] = alt		            #O(1)	
-               	p[u] = v                    #O(1)
-                heappush(pq, (alt,u))       #O(log m)        
-    return d,p
-
-def shortest_path(s,v,p):
-	if v == None:
-		return []
-	else:
-		return shortest_path(s,p[v],p) + [v]
- 
-#Graph: 
-    
-def define_G():
-    G = [   {1:1, 4:4, 2:2},   # Nachfolger von s
-            {3:3, 4:1},        # von u
-            {4:2, 5:3},        # von x
-            {},                # von y
-            {3:1, 5:2},        # von v
-            {}                 # von z
-        ]
-    return G
-
-
-G = define_G()
-d,p = dijkstra_pq(G,0)
-print( shortest_path(0,5,p))
-print( shortest_path(0,3,p))
-\end{lstlisting}
 \end{frame}
 
 
 \begin{frame}
 	\begin{block} <1-> {Eingabe}
 		\begin{itemize}
-	
+			\item leer
 		\end{itemize}
 	\end{block}	
 \end{frame}
@@ -85,7 +41,7 @@ print( shortest_path(0,3,p))
 \begin{frame}
 	\begin{block} <1-> {Rekursives Bestimmen des Pfades}
 		\begin{itemize}
-
+			\item leer
 		\end{itemize}
 	\end{block}	
 \end{frame}
@@ -94,7 +50,7 @@ print( shortest_path(0,3,p))
 \begin{frame}
 	\begin{block} <1-> {Aufruf}
 		\begin{itemize}
-
+			\item leer
 		\end{itemize}
 	\end{block}	
 \end{frame}
