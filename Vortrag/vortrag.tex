@@ -3,7 +3,25 @@
 \usepackage[english, ngerman]{babel} % Neue deutsche Rechtsschreibung
 \usepackage[utf8]{inputenc}
 
-\usepackage{listings} % Code-Darstellung
+\usepackage{listings} 	% Code-Darstellung
+\lstset					% Code Aussehen definieren
+{
+	basicstyle=\scriptsize, 	% print whole listing small
+	keywordstyle=\color{blue}\bfseries,
+								% underlined bold black keywords
+	identifierstyle=, 			% nothing happens
+	commentstyle=\color{red}, 	% white comments
+	stringstyle=\ttfamily, 		% typewriter type for strings
+	showstringspaces=false, 	% no special string spaces
+	framexleftmargin=7mm, 
+	tabsize=3,
+	showtabs=false,
+	frame=single, 
+	rulesepcolor=\color{blue},
+	numbers=left,
+	linewidth=146mm,
+	xleftmargin=8mm
+}
 
 \usetheme{FHTrier}  %% Themenwahl
 
