@@ -153,7 +153,7 @@ def dijkstra_pq(G,s):
     d = [None]*m  #kosten                   #O(m)
     p = [None]*m  #vorgaenger		       #O(m)
     d[s] = 0                                #O(1)
-    heappush(pq, (0,s))                     #O(m)
+    heappush(pq, (0,s))                     #O(log(m))
     while pq:                               #O(m)
         (_,v) = heappop(pq)                 #O(log m)
         for u in G[v]:                      #O(deg(v)) --> O(k)  
