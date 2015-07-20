@@ -1,18 +1,21 @@
+\section{Dijkstra}
+
+
 \begin{frame}
-	\begin{block}<1->{white note}
-		Ein ``white note'' ist ein Knoten über den noch nichts bekannt ist.
+	\begin{block}<1->{white node}
+		Ein ``white node'' ist ein Knoten über den noch nichts bekannt ist.
 	\end{block}
-	\begin{block}<2->{grey note}
-		Ein ``grey note'' ist ein Knoten zu dem bereits ein Weg gefunden wurde. Ob dies der ideale Weg ist kann man allerdings noch nicht sagen.
+	\begin{block}<2->{grey node}
+		Ein ``grey node'' ist ein Knoten zu dem bereits ein Weg gefunden wurde. Ob dies der ideale Weg ist kann man allerdings noch nicht sagen.
 	\end{block}
-	\begin{block}<3->{black note}
-		Ein ``black note'' ist ein Knoten zu dem bereits der ideale Weg gefunden wurde.
+	\begin{block}<3->{black node}
+		Ein ``black node'' ist ein Knoten zu dem bereits der optimale Weg gefunden wurde.
 	\end{block}
 \end{frame}
 
 \begin{frame}
 	\begin{block}{Berechnung von Knotenwerten}
-		Der Knotenwert $k_A$ eines Knotens $K_A$ so kann berechnet werden, wenn es einen Knoten $K_V$ gibt dessen Knotenwert $k_V$ bekannt ist und eine gerichtete Kante von $K_V$ nach $K_A$ mit bekannten Kosten $p$ existiert.
+		Der Knotenwert $k_A$ eines Knotens $K_A$ kann berechnet werden, wenn es einen Knoten $K_V$ gibt, dessen Knotenwert $k_V$ bekannt ist und eine gerichtete Kante von $K_V$ nach $K_A$ mit bekannten Kosten $p$ existiert.
 	\end{block}
 	\vfill
 	Berechnung: $k_A = k_V + p$
@@ -20,20 +23,22 @@
 
 \begin{frame}
 	\begin{block}{Anfang}
-		Der Startknoten wird als ``black note'' mit dem Wert 0 definiert. 
-		Alle seine Nachfolgerknotenwerte werden bestimmt. Diese werden zu ``grey notes''
+		Der Startknoten wird als ``black node'' mit dem Wert 0 definiert. 
+		Alle seine Nachfolgerknotenwerte werden bestimmt. Diese werden zu ``grey node''
 	\end{block}
 \end{frame}
 \begin{frame}
 	\begin{block}{Schritt}
-		Der ``grey note'', welcher den niedrigsten Wert besitzt, wird zu einem ``black notes''.
-		Bei allen seinen Nachfolgern wird deren Wert neu von dem aktuell ausgewählten ``grey note'' berechnet. Wenn der Wert kleiner als der Wert des Knoten ist, so wird dieser Wert überschrieben.
-		Knoten, welche das erste mal einen Wert zugeordnet bekommen, sind jetzt ``grey notes''.
+		Der ``grey node'', welcher den niedrigsten Wert besitzt, wird zu einem ``black nodes''.
+		Bei allen seinen Nachfolgern wird deren Wert von dem aktuell ausgewählten ``grey node'' neu berechnet. Wenn der Wert kleiner als der Wert des Knoten ist, so wird dieser Wert überschrieben.
+		Knoten, welche das erste mal einen Wert zugeordnet bekommen, sind jetzt ``grey nodes''.
+
+		relaxieren benennen.
 	\end{block}
 \end{frame}
 \begin{frame}
 	\begin{block}{Ende}
-		Wenn der Zielknoten ein ``black note'' wird, hat man den idealen Weg vom Startknoten und Endknoten gefunden.
+		Wenn der Zielknoten ein ``black node'' wird, hat man den idealen Weg vom Startknoten und Endknoten gefunden.
 	\end{block}
 
 \end{frame}
