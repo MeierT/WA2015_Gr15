@@ -1,12 +1,20 @@
 \section{Dijkstra}
 
+\begin{frame}
+	\begin{block}{Erweiterung der Knoten um ...}
+		\begin{itemize}
+			\item<2-> einen Schätzwert.
+			\item<3-> einen Vorgänger.
+		\end{itemize}
+	\end{block}
+\end{frame}
 
 \begin{frame}
 	\begin{block}<1->{white node}
-		Ein ``white node'' ist ein Knoten über den noch nichts bekannt ist.
+		Ein ``white node'' ist ein Knoten über den weder ein Schätzwert noch ein Vorgänger bekannt ist.
 	\end{block}
 	\begin{block}<2->{grey node}
-		Ein ``grey node'' ist ein Knoten zu dem bereits ein Weg gefunden wurde. Ob dies der ideale Weg ist kann man allerdings noch nicht sagen.
+		Ein ``grey node'' ist ein Knoten zu dem bereits ein Weg gefunden wurde. Er besitzt also einen Schätzwert und Nachfolger. Diese müssen aber noch nicht optimal sein.
 	\end{block}
 	\begin{block}<3->{black node}
 		Ein ``black node'' ist ein Knoten zu dem bereits der optimale Weg gefunden wurde.
@@ -15,30 +23,35 @@
 
 \begin{frame}
 	\begin{block}{Berechnung von Knotenwerten}
-		Der Schätzwert $k_A$ eines Knotens $K_A$ kann berechnet werden, wenn es einen Knoten $K_V$ gibt, dessen Schätzwert $k_V$ bekannt ist und eine gerichtete Kante von $K_V$ nach $K_A$ mit bekannten Gewichtung $g$ existiert.
+		Der Schätzwert $S_A$ eines Knotens $K_A$ kann berechnet werden, wenn es einen Knoten $K_V$ gibt, dessen Schätzwert $S_V$ bekannt ist und eine gerichtete Kante von $K_V$ nach $K_A$ mit bekannten Gewichtung $g$ existiert.
 	\end{block}
 	\vfill
-	Berechnung: $k_A = k_V + g$
+	Berechnung: $S_A = S_V + g$
 \end{frame}
 
 \begin{frame}
-	\begin{block}{Anfang}
-		Der Startknoten wird als ``black node'' mit dem Wert 0 definiert. 
-		Alle seine Nachfolgerknotenwerte werden bestimmt. Diese werden zu ``grey node''
+	\begin{block}{Initialisierung}
+		\begin{itemize}
+			\item<2-> Der Startknoten ist ein ``black node'' mit dem Schätzwert 0. Einen Vorgänger besitzt der Startknoten nicht.
+			\item<3-> Alle seine Nachfolgerknoten werden berechnet. Sie sind somit alle ``grey nodes''.
+		\end{itemize}
 	\end{block}
 \end{frame}
+
 \begin{frame}
 	\begin{block}{Schritt}
-		Der ``grey node'', welcher den niedrigsten Wert besitzt, wird zu einem ``black nodes''.
-		Bei allen seinen Nachfolgern wird deren Wert von dem aktuell ausgewählten ``grey node'' neu berechnet. Wenn der Wert kleiner als der Wert des Knoten ist, so wird dieser Wert überschrieben.
-		Knoten, welche das erste mal einen Wert zugeordnet bekommen, sind jetzt ``grey nodes''.
-
-		relaxieren benennen.
+		\begin{itemize}
+			\item<2-> Der ``grey node'' mit dem niedrigsten Schätzwert wird gesucht.
+			\item<3-> Dieser ``grey node'' wird ab sofort als ``black node'' angesehen.
+			\item<4-> Alle Nachfolgerknoten dieses Knotens werden berechnet. Falls die Nachfolger bereits einen Schätzwert wird der niedrigere Wert dem Knoten zugeordnet (relaxieren).
+		\end{itemize}
 	\end{block}
 \end{frame}
+
 \begin{frame}
 	\begin{block}{Ende}
-		Wenn der Zielknoten ein ``black node'' wird, hat man den idealen Weg vom Startknoten und Endknoten gefunden.
+		\begin{itemize}
+			\item<2-> Wenn der Zielknoten ein ``black node'' ist, so hat man den idealen Weg vom Startknoten zum Endknoten gefunden.
+		\end{itemize}
 	\end{block}
-
 \end{frame}
