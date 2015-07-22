@@ -7,6 +7,10 @@
 			\item<3-> einen Vorgänger.
 		\end{itemize}
 	\end{block}
+
+	\begin{block}<4->{Einschränkung der Kanten}
+		\visible<5>{Eine Kante darf nur ein positives Gewicht haben.}
+	\end{block}
 \end{frame}
 
 \begin{frame}
@@ -43,7 +47,7 @@
 		\begin{itemize}
 			\item<2-> Der ``grey node'' mit dem niedrigsten Schätzwert wird gesucht.
 			\item<3-> Dieser ``grey node'' wird ab sofort als ``black node'' angesehen.
-			\item<4-> Alle Nachfolgerknoten dieses Knotens werden berechnet. Falls die Nachfolger bereits einen Schätzwert wird der niedrigere Wert dem Knoten zugeordnet (relaxieren).
+			\item<4-> Alle Nachfolgerknoten dieses Knotens werden berechnet. Falls die Nachfolger bereits einen Schätzwert hat wird der niedrigere Wert dem Knoten zugeordnet (relaxieren), der Nachfolger wird dabei auch geändert.
 		\end{itemize}
 	\end{block}
 \end{frame}
@@ -54,4 +58,12 @@
 			\item<2-> Wenn der Zielknoten ein ``black node'' ist, so hat man den idealen Weg vom Startknoten zum Endknoten gefunden.
 		\end{itemize}
 	\end{block}
+\end{frame}
+
+\begin{frame}
+	\only<1> {\includegraphics[scale=0.25]{./pictures/00_Graph}}
+	\only<2> {\includegraphics[scale=0.25]{./pictures/01_Graph}}
+	\only<3> {\includegraphics[scale=0.25]{./pictures/02_Graph}}
+	\only<4> {\includegraphics[scale=0.25]{./pictures/03_Graph}}
+	\only<5> {\includegraphics[scale=0.25]{./pictures/04_Graph}}
 \end{frame}
