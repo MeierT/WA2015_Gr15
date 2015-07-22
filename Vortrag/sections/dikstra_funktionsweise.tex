@@ -9,7 +9,7 @@
 	\end{block}
 
 	\begin{block}<4->{Einschränkung der Kanten}
-		\visible<5>{Eine Kante darf nur ein positives Gewicht haben.}
+		\visible<5>{Eine Kante darf nur ein positives Gewicht besitzen.}
 	\end{block}
 \end{frame}
 
@@ -47,7 +47,7 @@
 		\begin{itemize}
 			\item<2-> Der ``grey node'' mit dem niedrigsten Schätzwert wird gesucht.
 			\item<3-> Dieser ``grey node'' wird ab sofort als ``black node'' angesehen.
-			\item<4-> Alle Nachfolgerknoten dieses Knotens werden berechnet. Falls die Nachfolger bereits einen Schätzwert hat wird der niedrigere Wert dem Knoten zugeordnet (relaxieren), der Nachfolger wird dabei auch geändert.
+			\item<4-> Alle Nachfolgerknoten dieses Knotens werden berechnet. Falls die Nachfolger bereits einen Schätzwert hat wird der niedrigere Wert dem Knoten zugeordnet (relaxieren), der Vorgänger wird dabei auch geändert.
 		\end{itemize}
 	\end{block}
 \end{frame}
@@ -61,9 +61,34 @@
 \end{frame}
 
 \begin{frame}
-	\only<1> {\includegraphics[scale=0.25]{./pictures/00_Graph}}
-	\only<2> {\includegraphics[scale=0.25]{./pictures/01_Graph}}
-	\only<3> {\includegraphics[scale=0.25]{./pictures/02_Graph}}
-	\only<4> {\includegraphics[scale=0.25]{./pictures/03_Graph}}
-	\only<5> {\includegraphics[scale=0.25]{./pictures/04_Graph}}
+	\only<1>{
+		\begin{figure}
+			\includegraphics[scale=0.23]{./pictures/00_Graph}
+			\caption{Pr. Dr. Schmitz Algorithmendesign}
+		\end{figure}
+	}
+	\only<2>{
+		\begin{figure}
+			\includegraphics[scale=0.23]{./pictures/01_Graph}
+			\caption{Pr. Dr. Schmitz Algorithmendesign}
+		\end{figure}
+	}
+	\only<3>{
+		\begin{figure}
+			\includegraphics[scale=0.23]{./pictures/02_Graph}
+			\caption{Pr. Dr. Schmitz Algorithmendesign}
+		\end{figure}
+	}
+	\only<4>{
+		\begin{figure}
+			\includegraphics[scale=0.23]{./pictures/03_Graph}
+			\caption{Pr. Dr. Schmitz Algorithmendesign}
+		\end{figure}
+	}
+	\only<5>{
+		\begin{figure}
+			\includegraphics[scale=0.23]{./pictures/04_Graph}
+			\caption{Pr. Dr. Schmitz Algorithmendesign}
+		\end{figure}
+	}
 \end{frame}
